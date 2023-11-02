@@ -4,14 +4,12 @@ import styled from 'styled-components';
 function PropertyCard({ property }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Function to automatically advance the image after a delay
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === property.images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Change image every 3 seconds
-
+    }, 3000); 
     return () => clearInterval(interval);
   }, [property.images]);
 

@@ -25,7 +25,6 @@ const PropertiesPage = () => {
     setFilteredProperties(filtered);
     setCurrentPage(1);
   };
-
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
   const currentProperties = filteredProperties
