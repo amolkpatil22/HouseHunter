@@ -33,7 +33,6 @@ const PropertiesPage = () => {
       if (sortOption === 'price') {
         return a.price - b.price;
       }
-      // Add more sorting options
       return 0;
     })
     .slice(indexOfFirstProperty, indexOfLastProperty);

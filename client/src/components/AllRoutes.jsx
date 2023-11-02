@@ -4,8 +4,6 @@ import Login from "../pages/Login/Login"
 import HomePage from "../pages/homePage/HomePage"
 import PropertiesPage from "../pages/PropertiesPage/PropertiesPage"
 
-
-
 export const AllRoutes = () => {
     return (
         <Routes>
