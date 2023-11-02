@@ -45,6 +45,8 @@ import {
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link as NewLink } from "react-router-dom";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/Login/SignUp";
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -109,11 +111,11 @@ const Navbar = () => {
       >
         {/* First Links */}
         <Box display="flex" justifyContent="space-around" w="35%">
-          <NewLink to="/buyproduct">Buy</NewLink>
-          <Link>Rent</Link>
-          <Link>Sell</Link>
-          <Link>Home Loans</Link>
-          <Link>Agent Finder</Link>
+          <NewLink to="/buyhouse">Buy</NewLink>
+          <NewLink to="/renthouse">Rent</NewLink>
+          <NewLink to="/sellhouse">Sell</NewLink>
+          <NewLink to="/homeloans">Home Loans</NewLink>
+          <NewLink to="/agentfinder">Agent Finder</NewLink>
         </Box>
 
         {/* Logo */}
@@ -125,9 +127,9 @@ const Navbar = () => {
         {/* Other Links */}
 
         <Box w="35%" display="flex" justifyContent="space-around">
-          <Link>Manage Rentals</Link>
-          <Link>Advertise</Link>
-          <Link>Help</Link>
+        <NewLink to="/rentals">Manage Rentals</NewLink>
+        <NewLink to="/advertisement">Advertisement</NewLink>
+        <NewLink to="/help"> Help</NewLink>
           {isLoggedIn ? (
             <>
               <Menu>
@@ -186,9 +188,9 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Buy</Link>
+                      <NewLink to="/buyhouse">Buy</NewLink>
                       </Box>
-                      <AccordionIcon />
+                      {/* <AccordionIcon /> */}
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}></AccordionPanel>
@@ -198,9 +200,9 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Rent</Link>
+                      <NewLink to="/renthouse">Rent</NewLink>
                       </Box>
-                      <AccordionIcon />
+                      {/* <AccordionIcon /> */}
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}></AccordionPanel>
@@ -210,15 +212,63 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Sell</Link>
+                      <NewLink to="/sellhouse">Sell</NewLink>
                       </Box>
-                      <AccordionIcon />
+                      {/* <AccordionIcon /> */}
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}></AccordionPanel>
                 </AccordionItem>
 
                 <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                      <NewLink to="/advertisement">Advertisement</NewLink>
+                      </Box>
+                      {/* <AccordionIcon /> */}
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                      <NewLink to="/homeloans">Home Loans</NewLink>
+                      </Box>
+                      {/* <AccordionIcon /> */}
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                      <NewLink to="/agentfinder">Agent Finder</NewLink>
+                      </Box>
+                      {/* <AccordionIcon /> */}
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                  <h2>
+                    <AccordionButton>
+                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
+                      <NewLink to="/rentals">Manage Rentals</NewLink>
+                      </Box>
+                      {/* <AccordionIcon /> */}
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}></AccordionPanel>
+                </AccordionItem>
+
+                {/* <AccordionItem>
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
@@ -228,63 +278,15 @@ const Navbar = () => {
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}></AccordionPanel>
-                </AccordionItem>
+                </AccordionItem> */}
 
                 <AccordionItem>
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Home Loans</Link>
+                      <NewLink to="/help"> Help</NewLink>
                       </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}></AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Agent Finder</Link>
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}></AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Manage Rentals</Link>
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}></AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Advertise</Link>
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel pb={4}></AccordionPanel>
-                </AccordionItem>
-
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton>
-                      <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <Link>Help</Link>
-                      </Box>
-                      <AccordionIcon />
+                      {/* <AccordionIcon /> */}
                     </AccordionButton>
                   </h2>
                   <AccordionPanel pb={4}></AccordionPanel>
@@ -335,7 +337,7 @@ const Navbar = () => {
                 fontFamily="serif"
                 fontWeight="semibold"
               >
-                Welcome to HomeSweeter
+                Welcome to House Hunter
               </Heading>
             </Center>
 
@@ -347,7 +349,7 @@ const Navbar = () => {
 
               <TabPanels>
                 <TabPanel>
-                  {/* <Login /> */}
+                  <Login />
                   <Center>
                     <Button
                       display="flex"
@@ -403,7 +405,7 @@ const Navbar = () => {
                 </TabPanel>
 
                 <TabPanel>
-                  {/* <Signup /> */}
+                  <SignUp />
                   <Divider />
 
                   <Center>
