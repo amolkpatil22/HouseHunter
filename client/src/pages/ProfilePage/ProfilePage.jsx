@@ -3,6 +3,6 @@
 
 export const ProfilePage = () => {
     return (<div>
-        Profile Page
+        Profile 
     </div>)
 }
