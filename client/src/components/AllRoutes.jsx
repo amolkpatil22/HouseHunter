@@ -5,6 +5,7 @@ import HomePage from "../pages/homePage/HomePage"
 import BuyHouse from "../pages/BuyHouse/BuyHouse"
 import RentHouse from "../pages/RentHouse/RentHouse"
 import SellHouse from "../pages/SellHouse/SellHouse"
+import PropertiesPage from "../pages/PropertiesPage/PropertiesPage"
 
 
 export const AllRoutes = () => {
@@ -16,6 +17,7 @@ export const AllRoutes = () => {
             <Route path="/sellhouse" element={<SellHouse/>} />
             <Route path={"/register"}  element={<SignUp />}/>
             <Route path={"/login"}  element={<Login />}/>
+            <Route path={"/property"} element={<PropertiesPage/>}/>
         </Routes>
     )
 }
