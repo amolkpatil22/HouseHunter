@@ -13,13 +13,16 @@ import {
     ModalCloseButton,
     useDisclosure
   } from '@chakra-ui/react'
+  import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from 'react-router-dom'
 const Login = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { loginWithRedirect,isAuthenticated, user } = useAuth0();
 
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
-  
+  console.log(user)
+  console.log(isAuthenticated)
     return (   
       <>
         <Button onClick={onOpen}>Login</Button>
@@ -59,6 +62,7 @@ const Login = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
+        <button onClick={() => loginWithRedirect()}>Log In</button>
       </>
     )
 }
