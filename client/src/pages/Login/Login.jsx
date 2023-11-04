@@ -14,6 +14,7 @@ import {
     useDisclosure
   } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+
 const Login = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -59,6 +60,7 @@ const Login = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
+
       </>
     )
 }
