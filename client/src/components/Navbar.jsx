@@ -29,6 +29,8 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Accordion,
   AccordionItem,
   AccordionPanel,
@@ -38,11 +40,12 @@ import {
   MenuList,
   MenuItem,
   MenuButton,
-  FormControl, 
-  FormLabel, 
-  useToast
+  FormControl,
+  FormLabel,
+  useToast,
+  IconButton,
 } from "@chakra-ui/react";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 // import Signup from "../Pages/Signup";
 // import { logo, user } from "../assets/index";
 // import Login from "../Pages/Login";
@@ -51,7 +54,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link as NewLink } from "react-router-dom";
 // import Login from "../pages/Login/Login";
 // import SignUp from "../pages/Login/SignUp";
-import { logoutAction, userLogin, userRegister } from "../store/Authentication/action";
+import {
+  logoutAction,
+  userLogin,
+  userRegister,
+} from "../store/Authentication/action";
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -71,82 +78,93 @@ const Navbar = () => {
     onOpen: modalOpen,
     onClose: modalClose,
   } = useDisclosure();
-  
+
   const btnRef = React.useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast= useToast();
   // const user = useSelector((store) => store.userReducer.user);
-    // const token = useSelector((store) => store.authReducer.token);
   //   const adminToken = useSelector((store) => store.adminReducer.token);
   // console.log(user);
   //   const isLoggedIn = !!token || !!adminToken|| null;
   const isLoggedIn = false;
-  
-  const [name, setName]= useState("");
-  const [password, setPassword]= useState("");
-  const [email, setEmail]= useState("");
 
-  
+  const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
+  const token = useSelector((store) => store.authReducer.token);
+  const isAuth = useSelector((store) => store.authReducer.isAuth);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const handleRegister=()=>{
-    let newUser={
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleRegister = () => {
+    let newUser = {
       name,
       email,
-      password
-    }
-    console.log(newUser)
-    dispatch(userRegister(newUser)).then((res)=>{
+      password,
+    };
+    console.log(newUser);
+    dispatch(userRegister(newUser)).then((res) => {
       toast({
-        title: 'New User Register Successfull',
-        status: 'success',
+        title: "New User Register Successfull",
+        status: "success",
         duration: 2000,
         isClosable: true,
-        position:'top'
-      })
+        position: "top",
+      });
+      setName("");
+      setEmail("")
+      setPassword("")
+      closeMainModal();
       navigate("/");
-    })
-
-  }
-  const handleLogin=()=>{
-    let User={
+    });
+  };
+  const handleLogin = () => {
+    let User = {
       email,
-      password
-    }
-    console.log(User)
-    dispatch(userLogin(User)).then((res)=>{
-      toast({
-        title: 'Login Successful',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-        position:'top'
+      password,
+    };
+    console.log(User);
+    dispatch(userLogin(User))
+      .then((res) => {
+        toast({
+          title: "Login Successful",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        setEmail("")
+       setPassword("")
+        closeMainModal();
+        navigate("/");
       })
-      navigate("/");
-    }).catch((error)=>{
-      toast({
-        title: 'Wrong Crendentials.',
-              description: "check password.",
-              status: 'error',
-              duration: 2000,
-              isClosable: true,
-        position:'top'
-      })
-        })
-
-  }
+      .catch((error) => {
+        toast({
+          title: "Wrong Crendentials.",
+          description: "check password.",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+      });
+  };
 
   const handleLogout = () => {
-    dispatch(logoutAction).then((res)=>{
+    dispatch(logoutAction(token)).then((res) => {
       toast({
-        title: 'Logout Successful',
-        status: 'success',
+        title: "Logout Successful",
+        status: "success",
         duration: 2000,
         isClosable: true,
-        position:'top'
-      })
-    })
-  
+        position: "top",
+      });
+    });
+
     navigate("/");
   };
 
@@ -185,21 +203,27 @@ const Navbar = () => {
 
         {/* Logo */}
 
-        <Box onClick={handleHomepage} _hover={{ cursor: "pointer" }} >
-          <Image w="40" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png" />
+        <Box onClick={handleHomepage} _hover={{ cursor: "pointer" }}>
+          <Image
+            w="40"
+            src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png"
+          />
         </Box>
 
         {/* Other Links */}
 
         <Box w="35%" display="flex" justifyContent="space-around">
-        <NewLink to="/rentals">Manage Rentals</NewLink>
-        <NewLink to="/advertisement">Advertisement</NewLink>
-        <NewLink to="/help"> Help</NewLink>
+          <NewLink to="/rentals">Manage Rentals</NewLink>
+          <NewLink to="/advertisement">Advertisement</NewLink>
+          <NewLink to="/help"> Help</NewLink>
           {isLoggedIn ? (
             <>
               <Menu>
                 <MenuButton>
-                  <Image src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png" w={6} />
+                  <Image
+                    src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png"
+                    w={6}
+                  />
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
@@ -241,7 +265,10 @@ const Navbar = () => {
             <DrawerHeader>
               <Center>
                 <Box>
-                  <Image w="36" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png" />
+                  <Image
+                    w="36"
+                    src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png"
+                  />
                 </Box>
               </Center>
             </DrawerHeader>
@@ -253,7 +280,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/buyhouse">Buy</NewLink>
+                        <NewLink to="/buyhouse">Buy</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -265,7 +292,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/renthouse">Rent</NewLink>
+                        <NewLink to="/renthouse">Rent</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -277,7 +304,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/sellhouse">Sell</NewLink>
+                        <NewLink to="/sellhouse">Sell</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -289,7 +316,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/advertisement">Advertisement</NewLink>
+                        <NewLink to="/advertisement">Advertisement</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -301,7 +328,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/homeloans">Home Loans</NewLink>
+                        <NewLink to="/homeloans">Home Loans</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -313,7 +340,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/agentfinder">Agent Finder</NewLink>
+                        <NewLink to="/agentfinder">Agent Finder</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -325,7 +352,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/rentals">Manage Rentals</NewLink>
+                        <NewLink to="/rentals">Manage Rentals</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -349,7 +376,7 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      <NewLink to="/help"> Help</NewLink>
+                        <NewLink to="/help"> Help</NewLink>
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -362,7 +389,11 @@ const Navbar = () => {
         </Drawer>
 
         <Box onClick={handleHomepage} _hover={{ cursor: "pointer" }}>
-          <Image w="20" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png" alt="logo" />
+          <Image
+            w="20"
+            src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png"
+            alt="logo"
+          />
         </Box>
 
         <Box display="flex" justifyContent="space-around">
@@ -383,6 +414,7 @@ const Navbar = () => {
           ) : (
             <Link onClick={openMainModal}>Sign In</Link>
           )}
+          {/* {isAuth?<Link onClick={handleLogout}>LogOut</Link>:<Link onClick={openMainModal}>SignIn</Link>} */}
         </Box>
       </Box>
 
@@ -414,22 +446,40 @@ const Navbar = () => {
 
               <TabPanels>
                 <TabPanel>
-                          {/* login comp */}
+                  {/* login comp */}
                   {/* <Login />  */}
                   <FormControl>
-                <FormLabel>Email</FormLabel>
-                <Input placeholder='Email...' value={email} onChange={(e)=>setEmail(e.target.value)} />
-              </FormControl>
-  
-              <FormControl mt={4}>
-                <FormLabel>Password</FormLabel>
-                <Input placeholder='Password...' value={password} onChange={(e)=>setPassword(e.target.value)} />
-              </FormControl>
-              <br />
-              <Button colorScheme='blue' width="100%" onClick={handleLogin}>
-                Sign In
-              </Button>
-          
+                    <FormLabel>Email</FormLabel>
+                    <Input
+                      placeholder="Email..."
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+
+                  <FormControl mt={4}>
+                    <FormLabel>Password</FormLabel>
+                    <InputGroup>
+                      <Input
+                        placeholder="Password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <InputRightElement>
+                        <IconButton
+                          variant="outline"
+                          aria-label="Toggle password visibility"
+                          onClick={togglePasswordVisibility}
+                          icon={showPassword ? <FaEyeSlash /> : <FaEye />}
+                        />
+                      </InputRightElement>
+                    </InputGroup>
+                  </FormControl>
+                  <br />
+                  <Button colorScheme="blue" width="100%" onClick={handleLogin}>
+                    Sign In
+                  </Button>
                   <Center>
                     <Button
                       display="flex"
@@ -483,28 +533,54 @@ const Navbar = () => {
                     </Text>
                   </Center> */}
                 </TabPanel>
-                
 
                 <TabPanel>
                   {/* <SignUp /> */}
                   {/* signup comp */}
                   <FormControl>
-                <FormLabel>Name</FormLabel>
-                <Input placeholder='Name' value={name} onChange={(e)=>setName(e.target.value)}  />
-              </FormControl>
+                    <FormLabel>Name</FormLabel>
+                    <Input
+                      placeholder="Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </FormControl>
                   <FormControl>
-                <FormLabel>Email</FormLabel>
-                <Input placeholder='Email'value={email} onChange={(e)=>setEmail(e.target.value)} />
-              </FormControl>
-  
-              <FormControl mt={4}>
-                <FormLabel>Password</FormLabel>
-                <Input placeholder='Password'  value={password} onChange={(e)=>setPassword(e.target.value)} />
-              </FormControl>
-              <br />
-              <Button colorScheme='blue' width="100%" onClick={handleRegister}>
-                Sign Up
-              </Button>
+                    <FormLabel>Email</FormLabel>
+                    <Input
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+
+                  <FormControl mt={4}>
+                    <FormLabel>Password</FormLabel>
+                    <InputGroup>
+                      <Input
+                        placeholder="Password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <InputRightElement>
+                        <IconButton
+                          variant="outline"
+                          aria-label="Toggle password visibility"
+                          onClick={togglePasswordVisibility}
+                          icon={showPassword ? <FaEyeSlash /> : <FaEye />}
+                        />
+                      </InputRightElement>
+                    </InputGroup>
+                  </FormControl>
+                  <br />
+                  <Button
+                    colorScheme="blue"
+                    width="100%"
+                    onClick={handleRegister}
+                  >
+                    Sign Up
+                  </Button>
                   <Divider />
 
                   <Center>

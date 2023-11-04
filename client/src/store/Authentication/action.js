@@ -48,9 +48,13 @@ export const userRegister=(newUser)=>(dispatch)=>{
     )
 }
 
-export const logoutAction=()=>(dispatch)=>{
+export const logoutAction=(token)=>(dispatch)=>{
     return(
-        axios.get(`${URL}/user/logout`).then((res)=>{
+        axios.get(`${URL}/user/logout`,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res)=>{
         dispatch({type:LOG_OUT})
         console.log("Logout Successful")
        
