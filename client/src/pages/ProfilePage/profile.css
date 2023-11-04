@@ -1,0 +1,33 @@
+.mainbox {
+    /* border: solid red; */
+    width: 80%;
+    margin: auto;
+    margin-top: 2%;
+    display: grid;
+    justify-content: center;
+}
+
+.leftdiv {
+    width: 300px;
+    padding: 10px;
+}
+
+.leftflex1 {
+    padding: 10px;
+    gap: 10px;
+    align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+
+
+.listitem {
+    color: black;
+    font-weight: normal;
+    transition: color 0.1s, font-weight 0.1s;
+}
+
+.listitem:hover {
+    color: orange;
+    font-weight: bold;
+}

@@ -6,18 +6,20 @@ import BuyHouse from "../pages/BuyHouse/BuyHouse"
 import RentHouse from "../pages/RentHouse/RentHouse"
 import SellHouse from "../pages/SellHouse/SellHouse"
 import PropertiesPage from "../pages/PropertiesPage/PropertiesPage"
+import { ProfilePage } from "../pages/ProfilePage/ProfilePage"
 
 
 export const AllRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<HomePage/>} />
-            <Route path="/buyhouse" element={<BuyHouse/>} />
-            <Route path="/renthouse" element={<RentHouse/>} />
-            <Route path="/sellhouse" element={<SellHouse/>} />
-            <Route path={"/register"}  element={<SignUp />}/>
-            <Route path={"/login"}  element={<Login />}/>
-            <Route path={"/property"} element={<PropertiesPage/>}/>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/buyhouse" element={<BuyHouse />} />
+            <Route path="/renthouse" element={<RentHouse />} />
+            <Route path="/sellhouse" element={<SellHouse />} />
+            <Route path={"/register"} element={<SignUp />} />
+            <Route path={"/login"} element={<Login />} />
+            <Route path={"/property"} element={<PropertiesPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
         </Routes>
     )
 }
