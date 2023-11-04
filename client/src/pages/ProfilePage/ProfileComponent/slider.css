@@ -1,0 +1,3 @@
+.imgslide ::-webkit-scrollbar {
+    display: none;
+}
