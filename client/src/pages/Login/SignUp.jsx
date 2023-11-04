@@ -14,9 +14,10 @@ import {
     useDisclosure
   } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useAuth0 } from "@auth0/auth0-react";
 const SignUp = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const { loginWithRedirect,loginWithPopup } = useAuth0();
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
   
@@ -48,6 +49,7 @@ const SignUp = () => {
               <Button colorScheme='blue' width="100%">
                 SignUp
               </Button>
+              
               <Link 
                  onClick={onClose}
                  fontWeight="600"
@@ -59,6 +61,7 @@ const SignUp = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
+        <button onClick={() => loginWithPopup()}>Log In</button>
       </>
     )
 }

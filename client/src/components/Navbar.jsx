@@ -38,15 +38,20 @@ import {
   MenuList,
   MenuItem,
   MenuButton,
+  FormControl, 
+  FormLabel, 
+  useToast
 } from "@chakra-ui/react";
+
 // import Signup from "../Pages/Signup";
 // import { logo, user } from "../assets/index";
 // import Login from "../Pages/Login";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link as NewLink } from "react-router-dom";
-import Login from "../pages/Login/Login";
-import SignUp from "../pages/Login/SignUp";
+// import Login from "../pages/Login/Login";
+// import SignUp from "../pages/Login/SignUp";
+import { logoutAction, userLogin, userRegister } from "../store/Authentication/action";
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -66,22 +71,82 @@ const Navbar = () => {
     onOpen: modalOpen,
     onClose: modalClose,
   } = useDisclosure();
-
+  
   const btnRef = React.useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const toast= useToast();
   // const user = useSelector((store) => store.userReducer.user);
-//   const token = useSelector((store) => store.authReducer.token);
-//   const adminToken = useSelector((store) => store.adminReducer.token);
+    // const token = useSelector((store) => store.authReducer.token);
+  //   const adminToken = useSelector((store) => store.adminReducer.token);
   // console.log(user);
-//   const isLoggedIn = !!token || !!adminToken|| null;
-    const isLoggedIn = false;
+  //   const isLoggedIn = !!token || !!adminToken|| null;
+  const isLoggedIn = false;
+  
+  const [name, setName]= useState("");
+  const [password, setPassword]= useState("");
+  const [email, setEmail]= useState("");
+
+  
+
+  const handleRegister=()=>{
+    let newUser={
+      name,
+      email,
+      password
+    }
+    console.log(newUser)
+    dispatch(userRegister(newUser)).then((res)=>{
+      toast({
+        title: 'New User Register Successfull',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top'
+      })
+      navigate("/");
+    })
+
+  }
+  const handleLogin=()=>{
+    let User={
+      email,
+      password
+    }
+    console.log(User)
+    dispatch(userLogin(User)).then((res)=>{
+      toast({
+        title: 'Login Successful',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top'
+      })
+      navigate("/");
+    }).catch((error)=>{
+      toast({
+        title: 'Wrong Crendentials.',
+              description: "check password.",
+              status: 'error',
+              duration: 2000,
+              isClosable: true,
+        position:'top'
+      })
+        })
+
+  }
 
   const handleLogout = () => {
-    // dispatch(logoutUser());
-    // localStorage.removeItem("token");
-    // localStorage.removeItem("adminToken");
+    dispatch(logoutAction).then((res)=>{
+      toast({
+        title: 'Logout Successful',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position:'top'
+      })
+    })
+  
     navigate("/");
   };
 
@@ -349,7 +414,22 @@ const Navbar = () => {
 
               <TabPanels>
                 <TabPanel>
-                  <Login />
+                          {/* login comp */}
+                  {/* <Login />  */}
+                  <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input placeholder='Email...' value={email} onChange={(e)=>setEmail(e.target.value)} />
+              </FormControl>
+  
+              <FormControl mt={4}>
+                <FormLabel>Password</FormLabel>
+                <Input placeholder='Password...' value={password} onChange={(e)=>setPassword(e.target.value)} />
+              </FormControl>
+              <br />
+              <Button colorScheme='blue' width="100%" onClick={handleLogin}>
+                Sign In
+              </Button>
+          
                   <Center>
                     <Button
                       display="flex"
@@ -386,7 +466,7 @@ const Navbar = () => {
                       Login as Admin
                     </Text>
                   </Center>
-                  <Center>Or</Center>
+                  {/* <Center>Or</Center>
                   <Center>
                     <Text
                       mt={2}
@@ -401,17 +481,36 @@ const Navbar = () => {
                     >
                       Register as Admin
                     </Text>
-                  </Center>
+                  </Center> */}
                 </TabPanel>
+                
 
                 <TabPanel>
-                  <SignUp />
+                  {/* <SignUp /> */}
+                  {/* signup comp */}
+                  <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input placeholder='Name' value={name} onChange={(e)=>setName(e.target.value)}  />
+              </FormControl>
+                  <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input placeholder='Email'value={email} onChange={(e)=>setEmail(e.target.value)} />
+              </FormControl>
+  
+              <FormControl mt={4}>
+                <FormLabel>Password</FormLabel>
+                <Input placeholder='Password'  value={password} onChange={(e)=>setPassword(e.target.value)} />
+              </FormControl>
+              <br />
+              <Button colorScheme='blue' width="100%" onClick={handleRegister}>
+                Sign Up
+              </Button>
                   <Divider />
 
                   <Center>
-                    <Text mt={4} mb={4} fontSize="large">
+                    {/* <Text mt={4} mb={4} fontSize="large">
                       Or connect with:
-                    </Text>
+                    </Text> */}
                   </Center>
                 </TabPanel>
               </TabPanels>
