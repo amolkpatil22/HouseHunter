@@ -17,7 +17,6 @@ export const ProfilePage = () => {
     let [element, setelement] = useState("profile")
 
     return (
-
         <Box className="mainbox" >
             <Flex gap={"1%"} >
                 <Box className="leftdiv" >
