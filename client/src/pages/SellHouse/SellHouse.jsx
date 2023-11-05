@@ -104,6 +104,7 @@ function SellHouse() {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            size="sm"
           />
         </FormControl>
         <FormControl>
@@ -113,6 +114,7 @@ function SellHouse() {
               name="price"
               value={formData.price}
               onChange={handleChange}
+              h="35px"
             />
           </NumberInput>
         </FormControl>
@@ -122,6 +124,7 @@ function SellHouse() {
             name="description"
             value={formData.description}
             onChange={handleChange}
+            size="sm"
           />
         </FormControl>
         <FormControl>
@@ -130,6 +133,7 @@ function SellHouse() {
             name="address"
             value={formData.address}
             onChange={handleChange}
+            size="sm"
           />
         </FormControl>
 
@@ -139,6 +143,7 @@ function SellHouse() {
             name="street_name"
             value={formData.street_name}
             onChange={handleChange}
+            size="sm"
           />
         </FormControl>
         <Flex direction="row">
@@ -148,6 +153,7 @@ function SellHouse() {
             name="state"
             value={formData.state}
             onChange={handleChange}
+            size="sm"
           />
         </FormControl>
 
@@ -158,6 +164,7 @@ function SellHouse() {
             name="zipcode"
             value={formData.zipcode}
             onChange={handleChange}
+            size="sm"
           />
         </FormControl>
         </Flex>
@@ -168,6 +175,7 @@ function SellHouse() {
               name="images"
               onChange={handleImagesChange}
               placeholder='Seperate Images URLs by Commas'
+              size="sm"
             />
           </FormControl>
 
@@ -177,6 +185,7 @@ function SellHouse() {
               name="tags"
               onChange={handleTagsChange}
             placeholder="Separate tags by commas"
+            size="sm"
             />
           </FormControl>
 
@@ -187,6 +196,7 @@ function SellHouse() {
               name="living_area"
               value={formData.living_area}
               onChange={handleChange}
+              h="30px"
             />
           </NumberInput>
         </FormControl>
@@ -199,6 +209,7 @@ function SellHouse() {
               name="beds"
               value={formData.beds}
               onChange={handleChange}
+              h="30px"
             />
           </NumberInput>
         </FormControl>
@@ -210,6 +221,7 @@ function SellHouse() {
               name="baths"
               value={formData.baths}
               onChange={handleChange}
+              h="30px"
             />
           </NumberInput>
         </FormControl>
@@ -218,7 +230,7 @@ function SellHouse() {
         <Flex direction="row">
         <FormControl w="210px" flex="2" mr={8}>
             <FormLabel>Type</FormLabel>
-            <Select name="type" value={formData.type} onChange={handleChange}>
+            <Select name="type" value={formData.type} onChange={handleChange} h="30px">
               <option value="sqft">Sq. Ft.</option>
               <option value="m²">m²</option>
             </Select>
@@ -226,7 +238,7 @@ function SellHouse() {
 
           <FormControl w="210px" flex="2" ml={1}>
             <FormLabel>Status</FormLabel>
-            <Select name="status" value={formData.status} onChange={handleChange}>
+            <Select name="status" value={formData.status} onChange={handleChange} h="30px">
               <option value="FOR_SALE">For Sale</option>
               <option value="SOLD">Sold</option>
               <option value="PENDING">Pending</option>
