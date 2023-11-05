@@ -11,8 +11,8 @@ const createTour = async (req, res) => {
         propertyID: property._id,
         ownerID: property.userID,
         ownerName: property.name,
-        bidderID: userID,
-        bidderName: name,
+        bidderID: req.body.userID,
+        bidderName: req.body.name,
         tourDate,
         tourStatus: 0,
       })
