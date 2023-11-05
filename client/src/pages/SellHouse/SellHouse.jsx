@@ -97,7 +97,7 @@ function SellHouse() {
         Sell Your House
       </Heading>
     <form onSubmit={handleSubmit}>
-      <VStack spacing="4">
+      <VStack spacing="0">
         <FormControl>
           <FormLabel>Name</FormLabel>
           <Input
@@ -233,7 +233,7 @@ function SellHouse() {
             </Select>
           </FormControl>
         </Flex>
-        <Button type="submit" w="300px" colorScheme="blue">
+        <Button type="submit" w="300px" marginTop="10px" colorScheme="blue">
           Submit
         </Button>
       </VStack>
