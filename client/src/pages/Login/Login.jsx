@@ -23,7 +23,7 @@ const Login = () => {
   
     return (   
       <>
-        <Button onClick={onOpen}>Login</Button>
+        {/* <Button onClick={onOpen}>Login</Button> */}
         <Modal
           isOpen={isOpen}
           onClose={onClose}
