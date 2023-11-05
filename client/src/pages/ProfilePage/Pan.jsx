@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles } from "@chakra-ui/react";
 
 let initdata = {
     pan: ""
 }
 
-export const Pan = () => {
+export const Pan = ({ userdata }) => {
     const [userInfo, setUserInfo] = useState(initdata);
     let [editStatus, setEditStatus] = useState(true)
 
@@ -16,6 +16,13 @@ export const Pan = () => {
             [name]: value,
         });
     };
+
+
+    useEffect(() => {
+        setUserInfo({
+            pan: userdata?.pan,
+        })
+    }, [userdata])
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
@@ -39,7 +46,7 @@ export const Pan = () => {
                     />
 
                     <Input isDisabled={editStatus}
-                    width={"fit-content"}
+                        width={"fit-content"}
                         type="file"
                         name="panimage"
                         onChange={handleInputChange}
