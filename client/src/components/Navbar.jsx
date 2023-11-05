@@ -90,7 +90,7 @@ const Navbar = () => {
   const user = useSelector((store) => store.authReducer.isAuth);
   // const adminToken = useSelector((store) => store.adminReducer.token);
   // console.log(user);
-    // const isLoggedIn = !!token || !!adminToken|| null;
+  // const isLoggedIn = !!token || !!adminToken|| null;
   // const isLoggedIn = true;
 
   const [showPassword, setShowPassword] = useState(false);
@@ -109,22 +109,22 @@ const Navbar = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile]= useState("")
-  const [address, setAddress]= useState("")
-  const [street, setStreet]= useState("")
-  const [city, setCity]= useState("");
-  const [postal_code, setPostal_code]= useState(null)
-  const [state, setState]= useState("")
-  const[pan, setPan]= useState("")
+  const [mobile, setMobile] = useState("")
+  const [address, setAddress] = useState("")
+  const [street, setStreet] = useState("")
+  const [city, setCity] = useState("");
+  const [postal_code, setPostal_code] = useState(null)
+  const [state, setState] = useState("")
+  const [pan, setPan] = useState("")
 
- 
-const isLoggedIn = !!token || null;
+
+  const isLoggedIn = !!token || null;
 
 
   useEffect(() => {
     localStorage.setItem("token", JSON.stringify(token));
-    localStorage.setItem("username", JSON.stringify(username));
-  }, [token,username])
+    localStorage.setItem("username", JSON.stringify(username || ""));
+  }, [token, username])
 
 
 
@@ -145,25 +145,25 @@ const isLoggedIn = !!token || null;
       state,
       pan
     };
-    if(name===""||
-      email==="" ||
-      password==="" ||
-      mobile==="" ||
-      address==="" ||
-      street==="" ||
-      city==="" ||
-      postal_code==="" ||
-      state==="" ||
-      pan===""){
-        toast({
-          title: "Please fill in all required fields",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-          position: "top",
-        });
-        return; // Prevent registration if any required field is empty
-      }
+    if (name === "" ||
+      email === "" ||
+      password === "" ||
+      mobile === "" ||
+      address === "" ||
+      street === "" ||
+      city === "" ||
+      postal_code === "" ||
+      state === "" ||
+      pan === "") {
+      toast({
+        title: "Please fill in all required fields",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      return; // Prevent registration if any required field is empty
+    }
     console.log(newUser);
     dispatch(userRegister(newUser)).then((res) => {
       toast({
@@ -184,7 +184,7 @@ const isLoggedIn = !!token || null;
       setState("")
       setPan("")
       setActiveTab(0);
-      isLoading=false
+      isLoading = false
     });
   };
   const handleLogin = () => {
@@ -193,8 +193,8 @@ const isLoggedIn = !!token || null;
       password,
     };
     console.log(User);
-    if(email==="" ||
-    password===""){
+    if (email === "" ||
+      password === "") {
       toast({
         title: "Please fill in all required fields",
         status: "error",
@@ -258,7 +258,7 @@ const isLoggedIn = !!token || null;
 
     navigate(`/`);
   };
-   
+
   return (
     <>
       <Box
@@ -304,8 +304,8 @@ const isLoggedIn = !!token || null;
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                  {/* <NewLink to="/advertisement">Advertisement</NewLink> */}
-                  <NewLink to="/profile">Profile</NewLink>
+                    {/* <NewLink to="/advertisement">Advertisement</NewLink> */}
+                    <NewLink to="/profile">Profile</NewLink>
                   </MenuItem>
                   {/* <MenuItem>
                     <NewLink to="/wishlist">Wishlist</NewLink>
@@ -394,8 +394,8 @@ const isLoggedIn = !!token || null;
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      {isLoggedIn?( <NewLink to="/profile">Profile</NewLink>): 
-                      (<NewLink to="/advertisement">Advertisement</NewLink>)}
+                        {isLoggedIn ? (<NewLink to="/profile">Profile</NewLink>) :
+                          (<NewLink to="/advertisement">Advertisement</NewLink>)}
                         {/* <NewLink to="/advertisement">Advertisement</NewLink> */}
                       </Box>
                       {/* <AccordionIcon /> */}
@@ -456,8 +456,8 @@ const isLoggedIn = !!token || null;
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                      {isLoggedIn?( <button onClick={handleLogout}>Logout</button>): 
-                      (<NewLink to="/help">Help</NewLink>)}
+                        {isLoggedIn ? (<button onClick={handleLogout}>Logout</button>) :
+                          (<NewLink to="/help">Help</NewLink>)}
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -583,7 +583,7 @@ const isLoggedIn = !!token || null;
                   </Center>
                   <Divider />
                   <Center>
-                        
+
                     <Text
                       mt={2}
                       mb={2}
@@ -597,8 +597,8 @@ const isLoggedIn = !!token || null;
                     >
                       Login as Admin
                     </Text>
-                    
-                   
+
+
                   </Center>
                   <Center>Or</Center>
                   <Center>
@@ -616,8 +616,8 @@ const isLoggedIn = !!token || null;
                       Register as Admin
                     </Text>
 
-                  </Center> */}
-                {/* {isLoading && <Loader />} */}
+                  </Center> 
+                  {/* {isLoading && <Loader />} */}
 
                 </TabPanel>
 
@@ -630,7 +630,7 @@ const isLoggedIn = !!token || null;
                       placeholder="Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                     
+
                       isRequired
                     />
                   </FormControl>
@@ -675,7 +675,7 @@ const isLoggedIn = !!token || null;
                       isRequired
                     />
                   </FormControl>
-                  
+
                   <FormControl>
                     <FormLabel>Address</FormLabel>
                     <Input
@@ -686,56 +686,56 @@ const isLoggedIn = !!token || null;
                       isRequired
                     />
                   </FormControl>
-                  
-                    <Flex direction="row">
-                      <FormControl flex="1" mr={2}>
-                        <FormLabel>Street</FormLabel>
-                        <Input
-                          type="text"
-                          placeholder="Street"
-                          value={street}
-                          onChange={(e) => setStreet(e.target.value)}
-                          isRequired
-                        />
-                      </FormControl>
-                      
-                      <FormControl flex="1" ml={2}>
-                        <FormLabel>City</FormLabel>
-                        <Input
-                          type="text"
-                          placeholder="City"
-                          value={city}
-                          onChange={(e) => setCity(e.target.value)}
-                          isRequired
-                        />
-                      </FormControl>
-                    </Flex>
-                                    
-                      {/* Flex container for Postal Code and State */}
-                      <Flex direction="row">
-                        <FormControl flex="1" mr={2}>
-                          <FormLabel>Postal Code</FormLabel>
-                          <Input
-                            type="number"
-                            placeholder="Postal Code"
-                            value={postal_code}
-                            onChange={(e) => setPostal_code(e.target.value)}
-                            maxLength={6}
-                            isRequired
-                          />
-                        </FormControl>
-                        
-                        <FormControl flex="1" ml={2}>
-                          <FormLabel>State</FormLabel>
-                          <Input
-                            type="text"
-                            placeholder="State"
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                          />
-                        </FormControl>
-                      </Flex>
-                  
+
+                  <Flex direction="row">
+                    <FormControl flex="1" mr={2}>
+                      <FormLabel>Street</FormLabel>
+                      <Input
+                        type="text"
+                        placeholder="Street"
+                        value={street}
+                        onChange={(e) => setStreet(e.target.value)}
+                        isRequired
+                      />
+                    </FormControl>
+
+                    <FormControl flex="1" ml={2}>
+                      <FormLabel>City</FormLabel>
+                      <Input
+                        type="text"
+                        placeholder="City"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        isRequired
+                      />
+                    </FormControl>
+                  </Flex>
+
+                  {/* Flex container for Postal Code and State */}
+                  <Flex direction="row">
+                    <FormControl flex="1" mr={2}>
+                      <FormLabel>Postal Code</FormLabel>
+                      <Input
+                        type="number"
+                        placeholder="Postal Code"
+                        value={postal_code}
+                        onChange={(e) => setPostal_code(e.target.value)}
+                        maxLength={6}
+                        isRequired
+                      />
+                    </FormControl>
+
+                    <FormControl flex="1" ml={2}>
+                      <FormLabel>State</FormLabel>
+                      <Input
+                        type="text"
+                        placeholder="State"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                      />
+                    </FormControl>
+                  </Flex>
+
                   <FormControl>
                     <FormLabel>PAN</FormLabel>
                     <Input
@@ -760,7 +760,7 @@ const isLoggedIn = !!token || null;
                       Or connect with:
                     </Text> */}
                   </Center>
-            {/* {isLoading && <Loader />} */}
+                  {/* {isLoading && <Loader />} */}
                 </TabPanel>
               </TabPanels>
             </Tabs>
