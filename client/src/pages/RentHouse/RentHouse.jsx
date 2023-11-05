@@ -51,7 +51,7 @@ const RentHouse = () => {
         />
         <SortSelect onChange={handleSortChange} value={sortOption}>
           <option value="price">Sort by Price</option>
-          {/* Add more sorting options as needed */}
+          {/* Add more sorting options as  */}
         </SortSelect>
         <SearchButton onClick={filterProperties}>Search</SearchButton>
       </SearchAndFilterContainer>
