@@ -5,6 +5,7 @@ const app = express()
 require("dotenv").config()
 const cors = require("cors")
 const propertyRoute = require("./routes/property.routes")
+const bidRouter = require("./routes/bid.routes")
 
 app.use(cors())
 app.use(express.json())
@@ -14,7 +15,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/user", userRouter)
-app.use("/property", propertyRoute)
+app.use("/properties", propertyRoute)
+app.use("/bid", bidRouter)
 
 app.listen(process.env.PORT, async () => {
   try {
