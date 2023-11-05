@@ -102,6 +102,7 @@ const Navbar = () => {
   }, [token])
 
 
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

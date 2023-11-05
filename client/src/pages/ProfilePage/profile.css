@@ -1,14 +1,14 @@
 .mainbox {
-    /* border: solid red; */
-    width: 80%;
-    margin: auto;
-    margin-top: 2%;
+    /* border: solid red;    */
+    margin: auto; 
     display: grid;
+   
     justify-content: center;
+    background-color: rgb(241,243,246);
 }
 
 .leftdiv {
-    width: 300px;
+    width: 350px;
     padding: 10px;
 }
 

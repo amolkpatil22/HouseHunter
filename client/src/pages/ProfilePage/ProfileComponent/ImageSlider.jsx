@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Box, Center, Image, Button, Heading, HStack, Flex } from '@chakra-ui/react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import "./slider.css"
+
 
 const ImageSlider = ({ images }) => {
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -25,24 +24,35 @@ const ImageSlider = ({ images }) => {
     return (
         <Box>
             <HStack spacing={12} align="center">
-                <Button onClick={() => handleScroll('left')}>
+                <Button colorScheme='orange' onClick={() => handleScroll('left')}>
                     <FaArrowLeft />
                 </Button>
                 <Flex
                     gap={"10px"}
                     className='imgslide'
                     ref={scrollRef}
-                    overflowX="scroll"
+                    style={{
+                        scrollBehavior: "smooth",
+                        overflow: "hidden",
+                        scrollbarWidth: "none",
+                        "-ms-overflow-style": "none",
+                        "&::-webkit-scrollbar": {
+                            width: "0.5rem",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "transparent", // Webkit-based browsers
+                        },
+                    }}
                     whiteSpace="nowrap"
                     w="100%"
                     px={3}
-                    style={{ scrollBehavior: 'smooth' }}
+
                 >
                     {images.map((src, index) => (
                         <Image borderRadius={"20px"} width={"300px"} src={src} alt={`Image ${index + 1}`} />
                     ))}
                 </Flex>
-                <Button onClick={() => handleScroll('right')}>
+                <Button colorScheme='orange' onClick={() => handleScroll('right')}>
                     <FaArrowRight />
                 </Button>
             </HStack>
