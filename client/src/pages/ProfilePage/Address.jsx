@@ -6,8 +6,7 @@ let initdata = {
     street: "",
     city: "",
     state: "",
-    postalCode: "",
-    country: "",
+    postal_code: "",
 }
 
 export const Address = ({ userdata }) => {
@@ -28,7 +27,7 @@ export const Address = ({ userdata }) => {
             street: userdata?.street,
             city: userdata?.city,
             state: userdata?.state,
-            postalCode: userdata?.postalCode,
+            postal_code: userdata?.postal_code,
             country: userdata?.country
         })
     }, [userdata])
@@ -42,7 +41,6 @@ export const Address = ({ userdata }) => {
 
 
 
-
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
             <form onSubmit={handleSaveChanges}>
@@ -51,7 +49,7 @@ export const Address = ({ userdata }) => {
                     <Input isDisabled={editStatus}
                         type="text"
                         name="address"
-                        value={userInfo.address}
+                        value={userInfo?.address}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -62,7 +60,7 @@ export const Address = ({ userdata }) => {
                         isDisabled={editStatus}
                         type="text"
                         name="street"
-                        value={userInfo.street}
+                        value={userInfo?.street}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -74,7 +72,7 @@ export const Address = ({ userdata }) => {
                             isDisabled={editStatus}
                             type="text"
                             name="city"
-                            value={userInfo.city}
+                            value={userInfo?.city}
                             onChange={handleInputChange}
                             isRequired
                         />
@@ -84,8 +82,8 @@ export const Address = ({ userdata }) => {
                         <Input
                             isDisabled={editStatus}
                             type="number"
-                            name="postalCode"
-                            value={userInfo.postalCode}
+                            name="postal_code"
+                            value={userInfo?.postal_code}
                             onChange={handleInputChange}
                             isRequired
                         />
@@ -97,7 +95,7 @@ export const Address = ({ userdata }) => {
                         isDisabled={editStatus}
                         type="text"
                         name="state"
-                        value={userInfo.state}
+                        value={userInfo?.state}
                         onChange={handleInputChange}
                         isRequired
                     />

@@ -68,8 +68,8 @@ export const ProfilePage = () => {
                     {element == "address" && <Address userdata={userdata} />}
                     {element == "pan" && <Pan userdata={userdata} />}
                     {element == "booked" && <Booked token={token} />}
-                    {element == "rented" && <Rent />}
-                    {element == "sold" && <Sold />}
+                    {element == "rented" && <Rent token={token} />}
+                    {element == "sold" && <Sold token={token} />}
                 </Box>
             </Flex>
         </Box>

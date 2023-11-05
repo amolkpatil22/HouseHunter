@@ -13,58 +13,58 @@ import ImageSlider from "./ProfileComponent/ImageSlider";
 import axios from "axios";
 
 
-let data = [{
-    description: "Welcome to this spacious 5-bedroom family home in a quiet suburban neighborhood. The property offers a large backyard with a pool, perfect for summer gatherings. The open-concept kitchen and living area make it ideal for entertaining. Don't miss out on this fantastic opportunity!",
-    address: "123 Oak Street, Pleasantville, CA 98765",
-    street_name: "Oak Street",
-    state: "Maharashtra",
-    zipcode: 98765,
-    beds: 5,
-    baths: 3,
-    tags: ["Swimming Pool", "Open-Concept", "Family-Friendly"],
-    images: [
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif"
-    ],
-    living_area: 2500,
-    type: "sqft",
-    status: "FOR_SALE",
-    price: 450000,
-    name: "Family Oasis",
-    userID: "user123"
-}, {
-    description: "Welcome to this spacious 5-bedroom family home in a quiet suburban neighborhood. The property offers a large backyard with a pool, perfect for summer gatherings. The open-concept kitchen and living area make it ideal for entertaining. Don't miss out on this fantastic opportunity!",
-    address: "123 Oak Street, Pleasantville, CA 98765",
-    street_name: "Oak Street",
-    state: "New State",
-    zipcode: 98765,
-    beds: 5,
-    baths: 3,
-    tags: ["Swimming Pool", "Open-Concept", "Family-Friendly"],
-    images: [
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif"
-    ],
-    living_area: 2500,
-    type: "sqft",
-    status: "FOR_SALE",
-    price: 450000,
-    name: "Family Oasis",
-    userID: "user123"
-}]
+// let data = [{
+//     description: "Welcome to this spacious 5-bedroom family home in a quiet suburban neighborhood. The property offers a large backyard with a pool, perfect for summer gatherings. The open-concept kitchen and living area make it ideal for entertaining. Don't miss out on this fantastic opportunity!",
+//     address: "123 Oak Street, Pleasantville, CA 98765",
+//     street_name: "Oak Street",
+//     state: "Maharashtra",
+//     zipcode: 98765,
+//     beds: 5,
+//     baths: 3,
+//     tags: ["Swimming Pool", "Open-Concept", "Family-Friendly"],
+//     images: [
+//         "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
+//         "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
+//         "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif"
+//     ],
+//     living_area: 2500,
+//     type: "sqft",
+//     status: "FOR_SALE",
+//     price: 450000,
+//     name: "Family Oasis",
+//     userID: "user123"
+// }, {
+//     description: "Welcome to this spacious 5-bedroom family home in a quiet suburban neighborhood. The property offers a large backyard with a pool, perfect for summer gatherings. The open-concept kitchen and living area make it ideal for entertaining. Don't miss out on this fantastic opportunity!",
+//     address: "123 Oak Street, Pleasantville, CA 98765",
+//     street_name: "Oak Street",
+//     state: "New State",
+//     zipcode: 98765,
+//     beds: 5,
+//     baths: 3,
+//     tags: ["Swimming Pool", "Open-Concept", "Family-Friendly"],
+//     images: [
+//         "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
+//         "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
+//         "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif"
+//     ],
+//     living_area: 2500,
+//     type: "sqft",
+//     status: "FOR_SALE",
+//     price: 450000,
+//     name: "Family Oasis",
+//     userID: "user123"
+// }]
 
 export const Booked = ({ token }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const [data, setdata] = useState([])
 
     useEffect(() => {
         axios({
-            url: "https://househunter.up.railway.app/bid/",
+            url: "https://househunter.up.railway.app/properties/bought",
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
-        }).then((res) => { console.log(res) })
+        }).then((res) => { if (res.properties) { setdata(res.properties) } })
             .catch((err) => console.log(err))
     }, [])
 
