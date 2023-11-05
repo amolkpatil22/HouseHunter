@@ -9,7 +9,6 @@ import { Booked } from "./Booked";
 import { Rent } from "./Rent";
 import { Sold } from "./Sold";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { GetUser } from "./actions";
 
 
@@ -44,7 +43,7 @@ export const ProfilePage = () => {
                         <Image src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" h={"60px"} w={"60px"} borderRadius={"50%"}></Image>
                         <Box textAlign={"left"} >
                             <Text>Hello,</Text>
-                            <Heading fontSize={"lg"}>Amol patil</Heading>
+                            <Heading fontSize={"lg"}>{userdata?.name}</Heading>
                         </Box>
                     </Flex>
                     <Flex padding={"10px"} boxShadow={"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;"} mt={"5%"} backgroundColor={"white"}>
@@ -68,7 +67,7 @@ export const ProfilePage = () => {
                     {element == "profile" && <ProfileInfo userdata={userdata} />}
                     {element == "address" && <Address userdata={userdata} />}
                     {element == "pan" && <Pan userdata={userdata} />}
-                    {element == "booked" && <Booked />}
+                    {element == "booked" && <Booked token={token} />}
                     {element == "rented" && <Rent />}
                     {element == "sold" && <Sold />}
                 </Box>
