@@ -59,7 +59,11 @@ import {
   userRegister,
 } from "../store/Authentication/action";
 import Admin from "../pages/Login/Admin";
+
 import SignUp from "../pages/Login/SignUp";
+
+import Loader from "./Loading";
+
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -92,8 +96,16 @@ const Navbar = () => {
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
   const token = useSelector((store) => store.authReducer.token);
+  let isLoading = useSelector((store) => store.authReducer.isLoading);
   const isAuth = useSelector((store) => store.authReducer.isAuth);
+
   const username = useSelector((store) => store.authReducer.username);
+
+  const [activeTab, setActiveTab] = useState(0); // State to manage the active tab
+
+
+  //  user details
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -133,6 +145,25 @@ const isLoggedIn = !!token || null;
       state,
       pan
     };
+    if(name===""||
+      email==="" ||
+      password==="" ||
+      mobile==="" ||
+      address==="" ||
+      street==="" ||
+      city==="" ||
+      postal_code==="" ||
+      state==="" ||
+      pan===""){
+        toast({
+          title: "Please fill in all required fields",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        return; // Prevent registration if any required field is empty
+      }
     console.log(newUser);
     dispatch(userRegister(newUser)).then((res) => {
       toast({
@@ -152,8 +183,8 @@ const isLoggedIn = !!token || null;
       setPostal_code("")
       setState("")
       setPan("")
-      closeMainModal();
-      navigate("/");
+      setActiveTab(0);
+      isLoading=false
     });
   };
   const handleLogin = () => {
@@ -162,6 +193,17 @@ const isLoggedIn = !!token || null;
       password,
     };
     console.log(User);
+    if(email==="" ||
+    password===""){
+      toast({
+        title: "Please fill in all required fields",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      return; // Prevent registration if any required field is empty
+    }
     dispatch(userLogin(User))
       .then((res) => {
         toast({
@@ -179,7 +221,7 @@ const isLoggedIn = !!token || null;
       .catch((error) => {
         toast({
           title: "Wrong Crendentials.",
-          description: "check password.",
+          description: "check password and email",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -216,7 +258,7 @@ const isLoggedIn = !!token || null;
 
     navigate(`/`);
   };
-
+   
   return (
     <>
       <Box
@@ -459,7 +501,6 @@ const isLoggedIn = !!token || null;
       </Box>
 
       {/* Sign in Modal */}
-
       <Modal isOpen={mainModalIsOpen} onClose={closeMainModal}>
         <ModalOverlay />
         <ModalContent borderRadius={20}>
@@ -478,7 +519,7 @@ const isLoggedIn = !!token || null;
               </Heading>
             </Center>
 
-            <Tabs mt={5}>
+            <Tabs mt={5} index={activeTab} onChange={(index) => setActiveTab(index)}>
               <TabList>
                 <Tab>Sign In</Tab>
                 <Tab>Register</Tab>
@@ -574,7 +615,10 @@ const isLoggedIn = !!token || null;
                     >
                       Register as Admin
                     </Text>
-                  </Center>
+
+                  </Center> */}
+                {/* {isLoading && <Loader />} */}
+
                 </TabPanel>
 
                 <TabPanel>
@@ -586,6 +630,8 @@ const isLoggedIn = !!token || null;
                       placeholder="Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                     
+                      isRequired
                     />
                   </FormControl>
                   <FormControl>
@@ -594,6 +640,7 @@ const isLoggedIn = !!token || null;
                       placeholder="Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                   </FormControl>
 
@@ -605,6 +652,7 @@ const isLoggedIn = !!token || null;
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        isRequired
                       />
                       <InputRightElement>
                         <IconButton
@@ -624,6 +672,7 @@ const isLoggedIn = !!token || null;
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
                       maxLength={10}
+                      isRequired
                     />
                   </FormControl>
                   
@@ -634,6 +683,7 @@ const isLoggedIn = !!token || null;
                       placeholder="Address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
+                      isRequired
                     />
                   </FormControl>
                   
@@ -645,6 +695,7 @@ const isLoggedIn = !!token || null;
                           placeholder="Street"
                           value={street}
                           onChange={(e) => setStreet(e.target.value)}
+                          isRequired
                         />
                       </FormControl>
                       
@@ -655,6 +706,7 @@ const isLoggedIn = !!token || null;
                           placeholder="City"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
+                          isRequired
                         />
                       </FormControl>
                     </Flex>
@@ -669,6 +721,7 @@ const isLoggedIn = !!token || null;
                             value={postal_code}
                             onChange={(e) => setPostal_code(e.target.value)}
                             maxLength={6}
+                            isRequired
                           />
                         </FormControl>
                         
@@ -707,6 +760,7 @@ const isLoggedIn = !!token || null;
                       Or connect with:
                     </Text> */}
                   </Center>
+            {/* {isLoading && <Loader />} */}
                 </TabPanel>
               </TabPanels>
             </Tabs>

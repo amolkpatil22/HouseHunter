@@ -17,6 +17,8 @@ const propertySchema = mongoose.Schema(
     price: Number,
     name: String,
     userID: String,
+    buyerID: String,
+    buyerName: String,
   },
 
   {

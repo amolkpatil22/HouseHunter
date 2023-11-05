@@ -1,17 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles } from "@chakra-ui/react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 let initdata = {
     name: "",
     email: "",
     password: "",
     mobile: "",
-    address: "",
 }
 
-export const ProfileInfo = () => {
-    const [userInfo, setUserInfo] = useState(initdata);
+export const ProfileInfo = ({ userdata }) => {
     let [editStatus, setEditStatus] = useState(true)
+
+    const [userInfo, setUserInfo] = useState(initdata);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,6 +22,11 @@ export const ProfileInfo = () => {
             [name]: value,
         });
     };
+
+    useEffect(() => {
+        
+        setUserInfo({ name: userdata?.name, email: userdata?.email, password: userdata?.password, mobile: userdata?.mobile })
+    }, [userdata])
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
@@ -38,7 +45,7 @@ export const ProfileInfo = () => {
                     <Input isDisabled={editStatus}
                         type="text"
                         name="name"
-                        value={userInfo.name}
+                        value={userInfo?.name}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -49,7 +56,7 @@ export const ProfileInfo = () => {
                         isDisabled={editStatus}
                         type="text"
                         name="email"
-                        value={userInfo.email}
+                        value={userInfo?.email}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -60,7 +67,7 @@ export const ProfileInfo = () => {
                         isDisabled={editStatus}
                         type="password"
                         name="password"
-                        value={userInfo.password}
+                        value={userInfo?.password}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -71,7 +78,7 @@ export const ProfileInfo = () => {
                         isDisabled={editStatus}
                         type="tel"
                         name="mobile"
-                        value={userInfo.mobile}
+                        value={userInfo?.mobile}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -81,7 +88,7 @@ export const ProfileInfo = () => {
                     <Textarea
                         isDisabled={editStatus}
                         name="address"
-                        value={userInfo.address}
+                        value={userInfo?.address}
                         onChange={handleInputChange}
                         isRequired
                     />
