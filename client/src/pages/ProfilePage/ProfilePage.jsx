@@ -8,27 +8,34 @@ import { Pan } from "./Pan";
 import { Booked } from "./Booked";
 import { Rent } from "./Rent";
 import { Sold } from "./Sold";
-import { useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { GetUser } from "./actions";
 
 
 
 
 export const ProfilePage = () => {
     let [element, setelement] = useState("profile")
+    let dispatch = useDispatch()
+    const { userdata, isLoading, isError } = useSelector((store) => {
+        return {
+            isLoading: store.profileReducer.isLoading,
+            isError: store.profileReducer.isError,
+            userdata: store.profileReducer.userdata,
+        }
+    }, shallowEqual)
+
+
     const token = useSelector((store) => store.authReducer.token);
 
     useEffect(() => {
-        axios({
-            method: "GET",
-            url: "https://househunter.up.railway.app/user",
-            headers: { Authorization: `Bearer ${token}` },            
-        })
-            .then((res) => { console.log(res) })
-            .catch((err) => { console.log(err) })
-    })
+        if (!userdata) {
+            dispatch(GetUser(token))
+        }
+    }, [])
 
-    console.log(token)
+
     return (
         <Box className="mainbox" >
             <Flex gap={"1%"} mt={"4%"} mb={"4%"}  >
@@ -58,9 +65,9 @@ export const ProfilePage = () => {
                     </Flex>
                 </Box>
                 <Box>
-                    {element == "profile" && <ProfileInfo />}
-                    {element == "address" && <Address />}
-                    {element == "pan" && <Pan />}
+                    {element == "profile" && <ProfileInfo userdata={userdata} />}
+                    {element == "address" && <Address userdata={userdata} />}
+                    {element == "pan" && <Pan userdata={userdata} />}
                     {element == "booked" && <Booked />}
                     {element == "rented" && <Rent />}
                     {element == "sold" && <Sold />}

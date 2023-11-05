@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles } from "@chakra-ui/react";
 
 let initdata = {
-    Address: "",
+    address: "",
     street: "",
     city: "",
     state: "",
@@ -10,7 +10,7 @@ let initdata = {
     country: "",
 }
 
-export const Address = () => {
+export const Address = ({ userdata }) => {
     const [userInfo, setUserInfo] = useState(initdata);
     let [editStatus, setEditStatus] = useState(true)
 
@@ -21,6 +21,18 @@ export const Address = () => {
             [name]: value,
         });
     };
+
+    useEffect(() => {
+        setUserInfo({
+            address: userdata?.address,
+            street: userdata?.street,
+            city: userdata?.city,
+            state: userdata?.state,
+            postalCode: userdata?.postalCode,
+            country: userdata?.country
+        })
+    }, [userdata])
+
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
@@ -35,11 +47,11 @@ export const Address = () => {
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
             <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4">
-                    <FormLabel>Address:</FormLabel>
+                    <FormLabel>address:</FormLabel>
                     <Input isDisabled={editStatus}
                         type="text"
-                        name="Address"
-                        value={userInfo.Address}
+                        name="address"
+                        value={userInfo.address}
                         onChange={handleInputChange}
                         isRequired
                     />
