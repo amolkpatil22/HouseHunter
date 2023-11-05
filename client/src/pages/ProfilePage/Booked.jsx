@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Modal,
     ModalOverlay,
@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ImageSlider from "./ProfileComponent/ImageSlider";
+import axios from "axios";
 
 
 let data = [{
@@ -54,10 +55,18 @@ let data = [{
     userID: "user123"
 }]
 
-export const Booked = () => {
+export const Booked = ({ token }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
 
+    useEffect(() => {
+        axios({
+            url: "https://househunter.up.railway.app/bid/",
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` }
+        }).then((res) => { console.log(res) })
+            .catch((err) => console.log(err))
+    }, [])
 
 
     return (
