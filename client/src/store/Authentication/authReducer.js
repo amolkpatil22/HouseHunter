@@ -1,11 +1,14 @@
 import { LOGIN_FAILURE, LOGIN_REQ, LOGIN_SUCCESS_USER, LOG_OUT } from "./actionTypes";
 
-const initialState = {
-    isAuth: false,
-    isLoading: false,
-    isError: false,
-    isAuthAdmin: false,
-    token: JSON.parse(localStorage.getItem("token")) || ""
+
+const initialState={
+    isAuth:false,
+    isLoading:false,
+    isError:false,
+    isAuthAdmin:false,
+    token:JSON.parse(localStorage.getItem("token")) || "",
+    username:JSON.parse(localStorage.getItem("username")) || ""
+
 };
 
 export const authReducer = (state = initialState, { type, payload }) => {
@@ -15,10 +18,12 @@ export const authReducer = (state = initialState, { type, payload }) => {
         case LOGIN_SUCCESS_USER:
             return {
                 ...state,
-                isLoading: false,
-                isError: false,
-                isAuth: true,
-                token: payload
+
+                isLoading:false,
+                isError:false,
+                isAuth:true,
+                token:payload.token,
+                username:payload.username
             }
         case LOGIN_FAILURE:
             return {
@@ -29,8 +34,11 @@ export const authReducer = (state = initialState, { type, payload }) => {
         case LOG_OUT:
             return {
                 ...state,
-                isAuth: false,
-                token: ""
+
+                isAuth:false,
+                token:"",
+                username:""
+
             }
         default:
             return state;
