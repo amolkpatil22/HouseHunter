@@ -1,8 +1,10 @@
 import React from 'react'
 
-const SellHouse = () => {
+function SellHouse() {
   return (
-    <div>SellHouse</div>
+    <form>
+      Form for list this products
+    </form>
   )
 }
 

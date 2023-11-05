@@ -5,8 +5,8 @@ import HomePage from "../pages/homePage/HomePage"
 import BuyHouse from "../pages/BuyHouse/BuyHouse"
 import RentHouse from "../pages/RentHouse/RentHouse"
 import SellHouse from "../pages/SellHouse/SellHouse"
-import PropertiesPage from "../pages/PropertiesPage/PropertiesPage"
 import { ProfilePage } from "../pages/ProfilePage/ProfilePage"
+import Checkout from "./Checkout"
 
 
 export const AllRoutes = () => {
@@ -16,10 +16,10 @@ export const AllRoutes = () => {
             <Route path="/buyhouse" element={<BuyHouse />} />
             <Route path="/renthouse" element={<RentHouse />} />
             <Route path="/sellhouse" element={<SellHouse />} />
-            <Route path={"/register"} element={<SignUp />} />
-            <Route path={"/login"} element={<Login />} />
-            <Route path={"/property"} element={<PropertiesPage />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/checkout/:id" element={<Checkout/>}/>
         </Routes>
     )
 }
