@@ -54,7 +54,7 @@ let data = [{
     userID: "user123"
 }]
 
-export const Booked = () => {
+export const Sold = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
 

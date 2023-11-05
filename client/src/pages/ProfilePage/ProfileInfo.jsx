@@ -31,7 +31,7 @@ export const ProfileInfo = () => {
 
 
     return (
-        <Box width={"600px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
+        <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
             <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4">
                     <FormLabel>Name:</FormLabel>
@@ -76,7 +76,7 @@ export const ProfileInfo = () => {
                         isRequired
                     />
                 </FormControl>
-                <FormControl mb="4">
+                {/* <FormControl mb="4">
                     <FormLabel>Address:</FormLabel>
                     <Textarea
                         isDisabled={editStatus}
@@ -85,7 +85,7 @@ export const ProfileInfo = () => {
                         onChange={handleInputChange}
                         isRequired
                     />
-                </FormControl>
+                </FormControl> */}
                 {editStatus == true && <Button onClick={() => setEditStatus(false)} colorScheme="orange">Edit Details</Button>}
                 {editStatus == false && <Button type="submit" colorScheme="blue">Save Changes</Button>}
 
