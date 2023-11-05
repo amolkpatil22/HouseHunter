@@ -8,7 +8,7 @@ const bookProperty = async (req, res) => {
     const post = await PropertyModel.findByIdAndUpdate(
       { _id },
       {
-        status: req.body.status,
+        status: 1,
         buyerName: req.body.name,
         buyerID: req.body.userID,
       }
