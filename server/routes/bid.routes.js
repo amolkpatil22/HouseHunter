@@ -8,6 +8,7 @@ const bidRouter = express.Router()
 bidRouter.use(auth)
 bidRouter.get("/:_id", createBid)
 bidRouter.get("/property/:_id", getBidsOwner)
-bidRouter.get("/myproperties", getBidsBidder)
+// bidRouter.get("/myproperties", getBidsBidder)
+bidRouter.get("/")
 
 module.exports = bidRouter
