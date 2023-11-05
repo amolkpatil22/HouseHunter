@@ -94,6 +94,10 @@ const Navbar = () => {
   const toast = useToast();
   const token = useSelector((store) => store.authReducer.token);
   const isAuth = useSelector((store) => store.authReducer.isAuth);
+  const [activeTab, setActiveTab] = useState(0); // State to manage the active tab
+
+
+  //  user details
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -151,8 +155,7 @@ const Navbar = () => {
       setPostal_code("")
       setState("")
       setPan("")
-      closeMainModal();
-      navigate("/");
+      setActiveTab(0);
     });
   };
   const handleLogin = () => {
@@ -178,7 +181,7 @@ const Navbar = () => {
       .catch((error) => {
         toast({
           title: "Wrong Crendentials.",
-          description: "check password.",
+          description: "check password and email",
           status: "error",
           duration: 2000,
           isClosable: true,
@@ -472,7 +475,7 @@ const Navbar = () => {
               </Heading>
             </Center>
 
-            <Tabs mt={5}>
+            <Tabs mt={5} index={activeTab} onChange={(index) => setActiveTab(index)}>
               <TabList>
                 <Tab>Sign In</Tab>
                 <Tab>Register</Tab>
@@ -580,6 +583,7 @@ const Navbar = () => {
                       placeholder="Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
+                      required
                     />
                   </FormControl>
                   <FormControl>
@@ -588,6 +592,7 @@ const Navbar = () => {
                       placeholder="Email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                   </FormControl>
 
@@ -599,6 +604,7 @@ const Navbar = () => {
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                       />
                       <InputRightElement>
                         <IconButton
@@ -618,6 +624,7 @@ const Navbar = () => {
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
                       maxLength={10}
+                      required
                     />
                   </FormControl>
                   
@@ -628,6 +635,7 @@ const Navbar = () => {
                       placeholder="Address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
+                      required
                     />
                   </FormControl>
                   
@@ -639,6 +647,7 @@ const Navbar = () => {
                           placeholder="Street"
                           value={street}
                           onChange={(e) => setStreet(e.target.value)}
+                          required
                         />
                       </FormControl>
                       
@@ -649,6 +658,7 @@ const Navbar = () => {
                           placeholder="City"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
+                          required
                         />
                       </FormControl>
                     </Flex>
@@ -663,6 +673,7 @@ const Navbar = () => {
                             value={postal_code}
                             onChange={(e) => setPostal_code(e.target.value)}
                             maxLength={6}
+                            required
                           />
                         </FormControl>
                         
