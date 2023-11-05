@@ -1,9 +1,9 @@
 const express = require("express")
 const auth = require("../middlewares/auth.middleware")
-const showProperty = require("../controllers/post/showProperty")
-const createProperty = require("../controllers/post/createProperty")
-const deleteProperty = require("../controllers/post/deleteProperty")
-const updateProperty = require("../controllers/post/updateProperty")
+const showProperty = require("../controllers/property/showProperty")
+const createProperty = require("../controllers/property/createProperty")
+const deleteProperty = require("../controllers/property/deleteProperty")
+const updateProperty = require("../controllers/property/updateProperty")
 const propertyRoute = express.Router()
 
 propertyRoute.get("/", showProperty)

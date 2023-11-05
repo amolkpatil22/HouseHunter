@@ -32,7 +32,7 @@ export const Address = () => {
 
 
     return (
-        <Box width={"600px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
+        <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
             <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4">
                     <FormLabel>Address:</FormLabel>

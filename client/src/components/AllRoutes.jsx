@@ -5,9 +5,12 @@ import HomePage from "../pages/homePage/HomePage"
 import BuyHouse from "../pages/BuyHouse/BuyHouse"
 import RentHouse from "../pages/RentHouse/RentHouse"
 import SellHouse from "../pages/SellHouse/SellHouse"
-import PropertiesPage from "../pages/PropertiesPage/PropertiesPage"
 import { ProfilePage } from "../pages/ProfilePage/ProfilePage"
+
 import Admin from "../pages/Login/Admin"
+
+import Checkout from "./Checkout"
+
 
 
 export const AllRoutes = () => {
@@ -22,6 +25,7 @@ export const AllRoutes = () => {
             <Route path={"/adminlogin"} element={<Admin />} />
             <Route path={"/property"} element={<PropertiesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/checkout/:id" element={<Checkout/>}/>
         </Routes>
     )
 }

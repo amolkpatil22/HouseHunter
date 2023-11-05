@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -108,6 +108,13 @@ const Navbar = () => {
  
 
 
+
+  useEffect(() => {
+    localStorage.setItem("token", JSON.stringify(token))
+  }, [token])
+
+
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -164,7 +171,7 @@ const Navbar = () => {
           position: "top",
         });
         setEmail("")
-       setPassword("")
+        setPassword("")
         closeMainModal();
         navigate("/");
       })
