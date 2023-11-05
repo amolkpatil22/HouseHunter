@@ -47,21 +47,23 @@ import {
   Flex
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import Signup from "../Pages/Signup";
 // import { logo, user } from "../assets/index";
 // import Login from "../Pages/Login";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link as NewLink } from "react-router-dom";
 // import Login from "../pages/Login/Login";
-// import SignUp from "../pages/Login/SignUp";
 import {
   logoutAction,
   userLogin,
   userRegister,
 } from "../store/Authentication/action";
 import Admin from "../pages/Login/Admin";
+
+import SignUp from "../pages/Login/SignUp";
+
 import Loader from "./Loading";
+
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -85,21 +87,25 @@ const Navbar = () => {
   const btnRef = React.useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const user = useSelector((store) => store.userReducer.user);
-  //   const adminToken = useSelector((store) => store.adminReducer.token);
+  const user = useSelector((store) => store.authReducer.isAuth);
+  // const adminToken = useSelector((store) => store.adminReducer.token);
   // console.log(user);
-  //   const isLoggedIn = !!token || !!adminToken|| null;
-  const isLoggedIn = false;
+    // const isLoggedIn = !!token || !!adminToken|| null;
+  // const isLoggedIn = true;
 
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
   const token = useSelector((store) => store.authReducer.token);
   let isLoading = useSelector((store) => store.authReducer.isLoading);
   const isAuth = useSelector((store) => store.authReducer.isAuth);
+
+  const username = useSelector((store) => store.authReducer.username);
+
   const [activeTab, setActiveTab] = useState(0); // State to manage the active tab
 
 
   //  user details
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -112,12 +118,13 @@ const Navbar = () => {
   const[pan, setPan]= useState("")
 
  
-
+const isLoggedIn = !!token || null;
 
 
   useEffect(() => {
-    localStorage.setItem("token", JSON.stringify(token))
-  }, [token])
+    localStorage.setItem("token", JSON.stringify(token));
+    localStorage.setItem("username", JSON.stringify(username));
+  }, [token,username])
 
 
 
@@ -291,17 +298,18 @@ const Navbar = () => {
               <Menu>
                 <MenuButton>
                   <Image
-                    src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vrgc8ioxl9e1x9vpxjsb.png"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtT3AdlQYcUV1lL8eCq7_-7sR6owE5fSSIXFYR3grhiD96GlH-&s"
                     w={6}
                   />
                 </MenuButton>
                 <MenuList>
                   <MenuItem>
-                    <NewLink to="/profile">Profile</NewLink>
+                  {/* <NewLink to="/advertisement">Advertisement</NewLink> */}
+                  <NewLink to="/profile">Profile</NewLink>
                   </MenuItem>
-                  <MenuItem>
+                  {/* <MenuItem>
                     <NewLink to="/wishlist">Wishlist</NewLink>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
@@ -386,7 +394,9 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <NewLink to="/advertisement">Advertisement</NewLink>
+                      {isLoggedIn?( <NewLink to="/profile">Profile</NewLink>): 
+                      (<NewLink to="/advertisement">Advertisement</NewLink>)}
+                        {/* <NewLink to="/advertisement">Advertisement</NewLink> */}
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -446,7 +456,8 @@ const Navbar = () => {
                   <h2>
                     <AccordionButton>
                       <Box as="span" flex="1" textAlign="left" mt={2} mb={2}>
-                        <NewLink to="/help"> Help</NewLink>
+                      {isLoggedIn?( <button onClick={handleLogout}>Logout</button>): 
+                      (<NewLink to="/help">Help</NewLink>)}
                       </Box>
                       {/* <AccordionIcon /> */}
                     </AccordionButton>
@@ -465,6 +476,7 @@ const Navbar = () => {
             alt="logo"
           />
         </Box>
+
 
         <Box display="flex" justifyContent="space-around">
           {isLoggedIn ? (
@@ -550,7 +562,7 @@ const Navbar = () => {
                     Sign In
                   </Button>
                   <Center>
-                    <Button
+                    {/* <Button
                       display="flex"
                       justifyContent="center"
                       alignItems="center"
@@ -567,7 +579,7 @@ const Navbar = () => {
                       }}
                     >
                       Forgot Your Password?
-                    </Button>
+                    </Button> */}
                   </Center>
                   <Divider />
                   <Center>
@@ -588,7 +600,7 @@ const Navbar = () => {
                     
                    
                   </Center>
-                  {/* <Center>Or</Center>
+                  <Center>Or</Center>
                   <Center>
                     <Text
                       mt={2}
@@ -603,8 +615,10 @@ const Navbar = () => {
                     >
                       Register as Admin
                     </Text>
+
                   </Center> */}
                 {/* {isLoading && <Loader />} */}
+
                 </TabPanel>
 
                 <TabPanel>

@@ -30,7 +30,7 @@ export const userLogin=(user)=>(dispatch)=>{
 
                dispatch({type:LOGIN_SUCCESS_USER,payload:{
                 token:res.data.token,
-                username:res.data.username
+                username:res.data.name
             }
             })
          
