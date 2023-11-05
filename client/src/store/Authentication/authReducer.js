@@ -5,7 +5,8 @@ const initialState={
     isLoading:false,
     isError:false,
     isAuthAdmin:false,
-    token:""
+    token:"",
+    username:""
 };
 
 export const authReducer=(state= initialState,{type,payload})=>{
@@ -18,7 +19,8 @@ export const authReducer=(state= initialState,{type,payload})=>{
                 isLoading:false,
                 isError:false,
                 isAuth:true,
-                token:payload
+                token:payload.token,
+                username:payload.username
             }
         case LOGIN_FAILURE:
             return {
@@ -30,7 +32,8 @@ export const authReducer=(state= initialState,{type,payload})=>{
             return {
                 ...state,
                 isAuth:false,
-                token:""
+                token:"",
+                username:""
             }
         default:
             return state;

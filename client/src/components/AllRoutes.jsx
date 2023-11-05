@@ -7,6 +7,7 @@ import RentHouse from "../pages/RentHouse/RentHouse"
 import SellHouse from "../pages/SellHouse/SellHouse"
 import PropertiesPage from "../pages/PropertiesPage/PropertiesPage"
 import { ProfilePage } from "../pages/ProfilePage/ProfilePage"
+import Admin from "../pages/Login/Admin"
 
 
 export const AllRoutes = () => {
@@ -18,6 +19,7 @@ export const AllRoutes = () => {
             <Route path="/sellhouse" element={<SellHouse />} />
             <Route path={"/register"} element={<SignUp />} />
             <Route path={"/login"} element={<Login />} />
+            <Route path={"/adminlogin"} element={<Admin />} />
             <Route path={"/property"} element={<PropertiesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
         </Routes>

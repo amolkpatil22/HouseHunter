@@ -26,8 +26,13 @@ export const userLogin=(user)=>(dispatch)=>{
         axios.post(`${URL}/user/login`,user).then((res)=>{
             console.log(res.data)
             console.log(res.data.token)
-            console.log(res.data.name)
-               dispatch({type:LOGIN_SUCCESS_USER,payload:res.data.token})
+            console.log(res.data.username)
+
+               dispatch({type:LOGIN_SUCCESS_USER,payload:{
+                token:res.data.token,
+                username:res.data.username
+            }
+            })
          
        }).catch((error)=>{
            dispatch({type:LOGIN_FAILURE})

@@ -44,6 +44,7 @@ import {
   FormLabel,
   useToast,
   IconButton,
+  Flex
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 // import Signup from "../Pages/Signup";
@@ -59,6 +60,7 @@ import {
   userLogin,
   userRegister,
 } from "../store/Authentication/action";
+import Admin from "../pages/Login/Admin";
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -95,6 +97,16 @@ const Navbar = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile]= useState("")
+  const [address, setAddress]= useState("")
+  const [street, setStreet]= useState("")
+  const [city, setCity]= useState("");
+  const [postal_code, setPostal_code]= useState(null)
+  const [state, setState]= useState("")
+  const[pan, setPan]= useState("")
+
+ 
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -105,6 +117,13 @@ const Navbar = () => {
       name,
       email,
       password,
+      mobile,
+      address,
+      street,
+      city,
+      postal_code,
+      state,
+      pan
     };
     console.log(newUser);
     dispatch(userRegister(newUser)).then((res) => {
@@ -118,6 +137,13 @@ const Navbar = () => {
       setName("");
       setEmail("")
       setPassword("")
+      setMobile("")
+      setAddress("")
+      setStreet("")
+      setCity("")
+      setPostal_code("")
+      setState("")
+      setPan("")
       closeMainModal();
       navigate("/");
     });
@@ -169,7 +195,8 @@ const Navbar = () => {
   };
 
   const handleAdmin = () => {
-    navigate("/adminLogin");
+    closeMainModal()
+    navigate("/adminlogin");
   };
   const handleAdminRegister = () => {
     navigate("/adminRegister");
@@ -502,6 +529,7 @@ const Navbar = () => {
                   </Center>
                   <Divider />
                   <Center>
+                        
                     <Text
                       mt={2}
                       mb={2}
@@ -515,6 +543,8 @@ const Navbar = () => {
                     >
                       Login as Admin
                     </Text>
+                    
+                   
                   </Center>
                   {/* <Center>Or</Center>
                   <Center>
@@ -572,6 +602,82 @@ const Navbar = () => {
                         />
                       </InputRightElement>
                     </InputGroup>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Mobile</FormLabel>
+                    <Input
+                      type="text"
+                      placeholder="Mobile"
+                      value={mobile}
+                      onChange={(e) => setMobile(e.target.value)}
+                      maxLength={10}
+                    />
+                  </FormControl>
+                  
+                  <FormControl>
+                    <FormLabel>Address</FormLabel>
+                    <Input
+                      type="text"
+                      placeholder="Address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </FormControl>
+                  
+                    <Flex direction="row">
+                      <FormControl flex="1" mr={2}>
+                        <FormLabel>Street</FormLabel>
+                        <Input
+                          type="text"
+                          placeholder="Street"
+                          value={street}
+                          onChange={(e) => setStreet(e.target.value)}
+                        />
+                      </FormControl>
+                      
+                      <FormControl flex="1" ml={2}>
+                        <FormLabel>City</FormLabel>
+                        <Input
+                          type="text"
+                          placeholder="City"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                        />
+                      </FormControl>
+                    </Flex>
+                                    
+                      {/* Flex container for Postal Code and State */}
+                      <Flex direction="row">
+                        <FormControl flex="1" mr={2}>
+                          <FormLabel>Postal Code</FormLabel>
+                          <Input
+                            type="number"
+                            placeholder="Postal Code"
+                            value={postal_code}
+                            onChange={(e) => setPostal_code(e.target.value)}
+                            maxLength={6}
+                          />
+                        </FormControl>
+                        
+                        <FormControl flex="1" ml={2}>
+                          <FormLabel>State</FormLabel>
+                          <Input
+                            type="text"
+                            placeholder="State"
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                          />
+                        </FormControl>
+                      </Flex>
+                  
+                  <FormControl>
+                    <FormLabel>PAN</FormLabel>
+                    <Input
+                      type="text"
+                      placeholder="PAN"
+                      value={pan}
+                      onChange={(e) => setPan(e.target.value)}
+                    />
                   </FormControl>
                   <br />
                   <Button
