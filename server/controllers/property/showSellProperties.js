@@ -8,13 +8,13 @@ const showSellProperties = async (req, res) => {
     const properties = await PropertyModel.find({ type: 2, status: 0 })
       .skip(skip)
       .limit(10)
-    if (posts.length) {
+    if (properties.length) {
       res.status(200).send({ message: "Success", properties })
     } else {
       res.status(200).send({ message: "No property found" })
     }
   } catch (error) {
-    res.status(400).send({ error })
+    res.status(400).send({ error: `${error}` })
   }
 }
 
