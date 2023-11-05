@@ -61,6 +61,7 @@ import {
   userRegister,
 } from "../store/Authentication/action";
 import Admin from "../pages/Login/Admin";
+import Loader from "./Loading";
 // import { logoutUser } from "../Redux/Authentication/action";
 // import LoginAsAdmin from "../Pages/LoginAsAdmin";
 
@@ -93,6 +94,7 @@ const Navbar = () => {
   const [showPassword, setShowPassword] = useState(false);
   const toast = useToast();
   const token = useSelector((store) => store.authReducer.token);
+  let isLoading = useSelector((store) => store.authReducer.isLoading);
   const isAuth = useSelector((store) => store.authReducer.isAuth);
   const [activeTab, setActiveTab] = useState(0); // State to manage the active tab
 
@@ -136,6 +138,25 @@ const Navbar = () => {
       state,
       pan
     };
+    if(name===""||
+      email==="" ||
+      password==="" ||
+      mobile==="" ||
+      address==="" ||
+      street==="" ||
+      city==="" ||
+      postal_code==="" ||
+      state==="" ||
+      pan===""){
+        toast({
+          title: "Please fill in all required fields",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top",
+        });
+        return; // Prevent registration if any required field is empty
+      }
     console.log(newUser);
     dispatch(userRegister(newUser)).then((res) => {
       toast({
@@ -156,6 +177,7 @@ const Navbar = () => {
       setState("")
       setPan("")
       setActiveTab(0);
+      isLoading=false
     });
   };
   const handleLogin = () => {
@@ -164,6 +186,17 @@ const Navbar = () => {
       password,
     };
     console.log(User);
+    if(email==="" ||
+    password===""){
+      toast({
+        title: "Please fill in all required fields",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      return; // Prevent registration if any required field is empty
+    }
     dispatch(userLogin(User))
       .then((res) => {
         toast({
@@ -218,7 +251,7 @@ const Navbar = () => {
 
     navigate(`/`);
   };
-
+   
   return (
     <>
       <Box
@@ -456,7 +489,6 @@ const Navbar = () => {
       </Box>
 
       {/* Sign in Modal */}
-
       <Modal isOpen={mainModalIsOpen} onClose={closeMainModal}>
         <ModalOverlay />
         <ModalContent borderRadius={20}>
@@ -572,6 +604,7 @@ const Navbar = () => {
                       Register as Admin
                     </Text>
                   </Center> */}
+                {/* {isLoading && <Loader />} */}
                 </TabPanel>
 
                 <TabPanel>
@@ -583,7 +616,8 @@ const Navbar = () => {
                       placeholder="Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      required
+                     
+                      isRequired
                     />
                   </FormControl>
                   <FormControl>
@@ -604,7 +638,7 @@ const Navbar = () => {
                         type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
+                        isRequired
                       />
                       <InputRightElement>
                         <IconButton
@@ -624,7 +658,7 @@ const Navbar = () => {
                       value={mobile}
                       onChange={(e) => setMobile(e.target.value)}
                       maxLength={10}
-                      required
+                      isRequired
                     />
                   </FormControl>
                   
@@ -635,7 +669,7 @@ const Navbar = () => {
                       placeholder="Address"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      required
+                      isRequired
                     />
                   </FormControl>
                   
@@ -647,7 +681,7 @@ const Navbar = () => {
                           placeholder="Street"
                           value={street}
                           onChange={(e) => setStreet(e.target.value)}
-                          required
+                          isRequired
                         />
                       </FormControl>
                       
@@ -658,7 +692,7 @@ const Navbar = () => {
                           placeholder="City"
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
-                          required
+                          isRequired
                         />
                       </FormControl>
                     </Flex>
@@ -673,7 +707,7 @@ const Navbar = () => {
                             value={postal_code}
                             onChange={(e) => setPostal_code(e.target.value)}
                             maxLength={6}
-                            required
+                            isRequired
                           />
                         </FormControl>
                         
@@ -712,6 +746,7 @@ const Navbar = () => {
                       Or connect with:
                     </Text> */}
                   </Center>
+            {/* {isLoading && <Loader />} */}
                 </TabPanel>
               </TabPanels>
             </Tabs>
