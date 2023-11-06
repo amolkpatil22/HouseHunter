@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const Checkout = () => {
   const [propertiesData, setPropertiesData] = useState([])
   const { id } = useParams();
-  const property = propertiesData.find((e) => e._id === id)
+  const property = propertiesData?.find((e) => e._id === id)
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
