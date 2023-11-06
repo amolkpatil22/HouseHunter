@@ -27,9 +27,8 @@ function SellHouse() {
     tags: [],
     images: [],
     living_area: 0,
-    type: '',
-    price: 0,
-    name: '',
+    type: 'sell',
+    price: 0,   
     // userID: 'user123',
   });
 
