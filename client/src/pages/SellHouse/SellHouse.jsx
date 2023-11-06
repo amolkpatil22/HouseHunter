@@ -13,6 +13,7 @@ import {
   Heading,
   Flex
 } from '@chakra-ui/react';
+import axios from 'axios';
 
 function SellHouse() {
   const [formData, setFormData] = useState({
@@ -26,11 +27,10 @@ function SellHouse() {
     tags: [],
     images: [],
     living_area: 0,
-    type: 'sqft',
-    status: 'FOR_SALE',
+    type: '',
     price: 0,
     name: '',
-    userID: 'user123',
+    // userID: 'user123',
   });
 
   const handleChange = (e) => {
@@ -43,10 +43,11 @@ function SellHouse() {
 
   const handleImagesChange = (e) => {
     const { value } = e.target;
-    const urls = value.split(',').map(url => url.trim());
+    const imageUrls = value.split(',').map(url => url.trim());
+
     setFormData({
       ...formData,
-      images: urls,
+      images: imageUrls,
     });
   };
 
@@ -58,51 +59,104 @@ function SellHouse() {
       tags: tags,
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle submission of form data
     console.log('Submitted:', formData);
     // Add logic to send the data to your backend or perform any necessary action.
-    
-        // Reset form fields to their initial state
 
-    setFormData({
-      description: '',
-    address: '',
-    street_name: '',
-    state: '',
-    zipcode: '',
-    beds: 0,
-    baths: 0,
-    tags: [],
-    images: [],
-    living_area: 0,
-    type: 'sqft',
-    status: 'FOR_SALE',
-    price: 0,
-    name: '',
-    userID: 'user123',
-    });
+
+  //  axios.post("https://househunter.up.railway.app/properties/add",formData,
+  //  {headers:
+  //  {authorization:`Bearer ${localStorage.getItem("token")}`}
+  //  })
+  //  .then((res)=>alert(res.data.message))
+  //  .catch((res)=>alert("error"));
+  
+   axios({
+    method:"POST",
+    url:'https://househunter.up.railway.app/properties/add',
+    headers:{authorization:`Bearer ${JSON.parse(localStorage.getItem("token"))}`},
+    data:formData
+   })
+   .then((res)=>alert(res.data.message))
+   .catch((res)=>alert("error"));
+  
+
+    // Reset form fields to their initial state
+    // setFormData({
+    //   description: '',
+    //   address: '',
+    //   street_name: '',
+    //   state: '',
+    //   zipcode: '',
+    //   beds: 0,
+    //   baths: 0,
+    //   tags: [],
+    //   images: [],
+    //   living_area: 0,
+    //   type: 'sqft',
+    //   status: 'FOR_SALE',
+    //   price: 0,
+    //   name: '',
+    //   userID: 'user123',
+    // });
   };
 
-
   return (
-    <Box 
-    w="500px"
-    margin="auto"
-     boxShadow="0 4px 8px 0 rgba(0,0,0,0.2)"
-     p={4}
-     >
-      <Heading as="h1" size="xl" marginBottom="20px">
+    <Box
+      w={['100%', '100%', '500px']} // Responsive width
+      margin="auto"
+      boxShadow="0 4px 8px 0 rgba(0,0,0,0.2)"
+      p={4}
+    >
+      <Heading as="h2" size="xl" marginBottom="20px">
         Sell Your House
       </Heading>
     <form onSubmit={handleSubmit}>
       <VStack spacing="0">
-        <FormControl>
-          <FormLabel>Name</FormLabel>
+      {/* <FormControl>
+            <FormLabel>Name</FormLabel>
+            <Input
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              size="sm"
+            />
+          </FormControl> */}
+        {/* <FormControl>
+          <FormLabel>Image 1</FormLabel>
           <Input
-            name="name"
-            value={formData.name}
+            name="image1"
+            value={formData.image1}
+            onChange={handleChange}
+            size="sm"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Image 2</FormLabel>
+          <Input
+            name="image2"
+            value={formData.image2}
+            onChange={handleChange}
+            size="sm"
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Image 3</FormLabel>
+          <Input
+            name="image3"
+            value={formData.image3}
+            onChange={handleChange}
+            size="sm"
+          />
+        </FormControl> */}
+        <FormControl>
+          <FormLabel>Description</FormLabel>
+          <Textarea
+            name="description"
+            value={formData.description}
             onChange={handleChange}
             size="sm"
           />
@@ -117,15 +171,6 @@ function SellHouse() {
               h="35px"
             />
           </NumberInput>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Description</FormLabel>
-          <Textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            size="sm"
-          />
         </FormControl>
         <FormControl>
           <FormLabel>Address</FormLabel>
@@ -174,7 +219,7 @@ function SellHouse() {
             <Input
               name="images"
               onChange={handleImagesChange}
-              placeholder='Seperate Images URLs by Commas'
+              placeholder="Separate Image URLs by Commas"
               size="sm"
             />
           </FormControl>
@@ -184,11 +229,10 @@ function SellHouse() {
             <Input
               name="tags"
               onChange={handleTagsChange}
-            placeholder="Separate tags by commas"
-            size="sm"
+              placeholder="Separate tags by commas"
+              size="sm"
             />
           </FormControl>
-
         <FormControl>
           <FormLabel>Living Area</FormLabel>
           <NumberInput defaultValue={0} min={0}>
@@ -231,19 +275,19 @@ function SellHouse() {
         <FormControl w="210px" flex="2" mr={8}>
             <FormLabel>Type</FormLabel>
             <Select name="type" value={formData.type} onChange={handleChange} h="30px">
-              <option value="sqft">Sq. Ft.</option>
-              <option value="m²">m²</option>
+              <option value="sell">sell</option>
+              <option value="rent">rent</option>
             </Select>
           </FormControl>
 
-          <FormControl w="210px" flex="2" ml={1}>
+          {/* <FormControl w="210px" flex="2" ml={1}>
             <FormLabel>Status</FormLabel>
             <Select name="status" value={formData.status} onChange={handleChange} h="30px">
               <option value="FOR_SALE">For Sale</option>
               <option value="SOLD">Sold</option>
               <option value="PENDING">Pending</option>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Flex>
         <Button type="submit" w="300px" marginTop="10px" colorScheme="blue">
           Submit
