@@ -3,30 +3,34 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import PropertyCard from '../../components/PropertyCard';
 import axios from "axios"
+import { SpinnerLoader } from '../ProfilePage/ProfileComponent/Spinner';
+import { Button } from '@chakra-ui/react';
 const RentHouse = () => {
-const [propertiesData, setPropertiesData] = useState([])
-const [searchTerm, setSearchTerm] = useState('');
-const [filteredProperties, setFilteredProperties] = useState(propertiesData);
-const [currentPage, setCurrentPage] = useState(1);
-const propertiesPerPage = 6;
-const [sortOption, setSortOption] = useState('price');
+  const [propertiesData, setPropertiesData] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProperties, setFilteredProperties] = useState(propertiesData);
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 6;
+  const [sortOption, setSortOption] = useState('price');
+  const [isLoading, setisLoading] = useState(false)
 
-useEffect(() => {
-  axios({
+  useEffect(() => {
+    setisLoading(true)
+    axios({
       url: "https://househunter.up.railway.app/properties/rent",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-  }).then((res) => {console.log(res); setPropertiesData(res.data.properties) })
-      .catch((err) => console.log(err))
-}, [])
-console.log(propertiesData)
-const handleSearchChange = (e) => {
-  setSearchTerm(e.target.value);
-};
+    }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
+      .catch((err) => { setisLoading(false); console.log(err) })
+  }, [])
 
-const handleSortChange = (e) => {
-  setSortOption(e.target.value);
-};
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  };
 
   const filterProperties = () => {
     const filtered = propertiesData.filter((property) =>
@@ -45,10 +49,10 @@ const handleSortChange = (e) => {
       return 0;
     })
     .slice(indexOfFirstProperty, indexOfLastProperty);
-console.log(propertiesData)
+
   return (
     <Container>
-      <h2 style={{ fontSize: 'xx-large', fontWeight: 'bold', marginBottom: '15px' }}>
+      <h2 style={{ fontSize: 'xx-large', fontWeight: 'bold', marginBottom: '40px' }}>
         Real Estate & Homes For Rent
       </h2>
       <SearchAndFilterContainer>
@@ -62,14 +66,17 @@ console.log(propertiesData)
           <option value="price">Sort by Price</option>
           {/* Add more sorting  */}
         </SortSelect>
-        <SearchButton onClick={filterProperties}>Search</SearchButton>
+        <Button size={"md"} margin={"10px"} colorScheme='blue'
+          _hover={{
+            bg: "green.600", color: "white"
+          }} onClick={filterProperties}>Search</Button>
       </SearchAndFilterContainer>
-
-      <PropertiesList>
+      {isLoading && <SpinnerLoader />}
+      {!isLoading && <PropertiesList>
         {propertiesData?.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
-      </PropertiesList>
+      </PropertiesList>}
 
       <PaginationContainer>
         <PaginationButton
@@ -97,9 +104,12 @@ const Container = styled.div`
 `;
 
 const PropertiesList = styled.div`
-  display: flex;
+   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap:10px;
+  width:90%;
+  margin:auto;
+  justify-content:center;
 `;
 
 const PaginationContainer = styled.div`
@@ -123,14 +133,17 @@ const SearchAndFilterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+ 
+  width:90%;
+  margin:auto; 
+  margin-bottom: 40px;
 `;
 
 const SearchInput = styled.input`
   flex: 1;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 
 const SortSelect = styled.select`
@@ -140,11 +153,11 @@ const SortSelect = styled.select`
   border-radius: 5px;
 `;
 
-const SearchButton = styled.button`
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  `;
+// const SearchButton = styled.button`
+//   background-color: #007BFF;
+//   color: white;
+//   border: none;
+//   border-radius: 5px;
+//   padding: 10px 20px;
+//   cursor: pointer;
+//   `;

@@ -274,8 +274,8 @@ const Navbar = () => {
           <NewLink to="/buyhouse">Buy</NewLink>
           <NewLink to="/renthouse">Rent</NewLink>
           <NewLink to="/sellhouse">Sell</NewLink>
-          <NewLink to="/homeloans">Home Loans</NewLink>
-          <NewLink to="/agentfinder">Agent Finder</NewLink>
+          <NewLink>Home Loans</NewLink>
+          <NewLink >Agent Finder</NewLink>
         </Box>
 
         {/* Logo */}
@@ -290,9 +290,9 @@ const Navbar = () => {
         {/* Other Links */}
 
         <Box w="35%" display="flex" justifyContent="space-around">
-          <NewLink to="/rentals">Manage Rentals</NewLink>
-          <NewLink to="/advertisement">Advertisement</NewLink>
-          <NewLink to="/help"> Help</NewLink>
+          <NewLink >Manage Rentals</NewLink>
+          <NewLink >Advertisement</NewLink>
+          <NewLink > Help</NewLink>
           {isLoggedIn ? (
             <>
               <Menu>
@@ -616,7 +616,7 @@ const Navbar = () => {
                       Register as Admin
                     </Text>
 
-                  </Center> 
+                  </Center>
                   {/* {isLoading && <Loader />} */}
 
                 </TabPanel>

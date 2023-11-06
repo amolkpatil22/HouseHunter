@@ -10,10 +10,10 @@ function PropertyCard2({ property }) {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === property.images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); 
+    }, 3000);
     return () => clearInterval(interval);
   }, [property.images]);
-console.log(property)
+  console.log(property)
   return (
     <StyledPropertyCard>
       <Link to={`/checkout2/${property._id}`}>
@@ -49,20 +49,23 @@ const StyledPropertyCard = styled.div`
   background-color: #f9f9f9;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  max-width: 350px;
+  max-width: 300px;
+
 `;
 
 const ImageContainer = styled.div`
   width: 100%;
   max-width: 95%;
   margin: 0 auto;
+
 `;
 
 const PropertyImage = styled.img`
-  width: 100%;
-  height: auto;
+  width: 300px;
+  height: 250px;
   display: block;
-  max-width: 100%;
+
+  
 `;
 
 const PropertyInfo = styled.div`

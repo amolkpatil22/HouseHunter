@@ -11,6 +11,7 @@ import {
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ImageSlider from "./ProfileComponent/ImageSlider";
 import axios from "axios";
+import { SpinnerLoader } from "./ProfileComponent/Spinner";
 
 
 // let data = [{
@@ -57,23 +58,25 @@ import axios from "axios";
 
 export const Rent = ({ token }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const [isLoading, setisLoading] = useState(false)
     const [data, setdata] = useState([])
 
     useEffect(() => {
+        setisLoading(true)
         axios({
             url: "https://househunter.up.railway.app/properties/rented",
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
-        }).then((res) => { if (res.data.properties) { setdata(res.data.properties) } })
-            .catch((err) => console.log(err))
+        }).then((res) => { setisLoading(false); if (res.data.properties) { setdata(res.data.properties) } })
+            .catch((err) => { setisLoading(false); console.log(err) })
     }, [])
 
 
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
             <Heading mb={"20px"} size={"lg"} color={"#2f742e"}>Total Properties:{data?.length || 0} </Heading>
-            <Grid gap={"30px"}>
+            {isLoading && <SpinnerLoader />}
+            {!isLoading && < Grid gap={"30px"}>
                 {data?.map((e) => {
                     return (
                         <Box>
@@ -149,7 +152,7 @@ export const Rent = ({ token }) => {
 
                     )
                 })}
-            </Grid>
-        </Box>
+            </Grid>}
+        </Box >
     )
 }

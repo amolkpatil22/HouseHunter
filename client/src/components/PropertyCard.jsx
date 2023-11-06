@@ -49,7 +49,7 @@ const StyledPropertyCard = styled.div`
   background-color: #f9f9f9;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  max-width: 350px;
+  max-width: 300px;
 `;
 
 const ImageContainer = styled.div`
@@ -59,10 +59,10 @@ const ImageContainer = styled.div`
 `;
 
 const PropertyImage = styled.img`
-  width: 100%;
-  height: auto;
+width: 300px;
+  height: 250px;
   display: block;
-  max-width: 100%;
+ 
 `;
 
 const PropertyInfo = styled.div`
