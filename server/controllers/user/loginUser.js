@@ -27,6 +27,8 @@ const loginUser = async (req, res) => {
             }
           }
         )
+      } else {
+        res.status(400).send({ error: "Wrong credentials" })
       }
     })
   } else {
