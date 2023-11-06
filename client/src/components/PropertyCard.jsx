@@ -13,10 +13,10 @@ function PropertyCard({ property }) {
     }, 3000); 
     return () => clearInterval(interval);
   }, [property.images]);
-
+console.log(property)
   return (
     <StyledPropertyCard>
-      <Link to={`/checkout/${property.id}`}>
+      <Link to={`/checkout/${property._id}`}>
         <ImageContainer>
           <PropertyImage
             src={property.images[currentImageIndex]}

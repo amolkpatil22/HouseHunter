@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
-import propertyData from "../pages/RentHouse/data"
 import { useParams } from 'react-router-dom';
 const Checkout = () => {
+  const [propertiesData,setPropertiesData] = useState([])
   const { id } = useParams();
-  const property = propertyData.find((e)=>e.id===+id)
+  const property = propertiesData.find((e)=>e._id===id)
   console.log(property)
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    console.log(property)
   };
-
+console.log(property)
+  useEffect(() => {
+    axios({
+        url: "https://househunter.up.railway.app/properties/rent",
+        method: "GET",
+        headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
+    }).then((res) => { setPropertiesData(res.data.properties) })
+        .catch((err) => console.log(err))
+  }, [])
+console.log(propertiesData)
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === property.images.length - 1 ? 0 : prevIndex + 1
+        prevIndex === property?.images.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000); 
     return () => clearInterval(interval);
-  }, [property.images]);
+  }, [property]);
 
   return (
     <StyledPropertyCard>
