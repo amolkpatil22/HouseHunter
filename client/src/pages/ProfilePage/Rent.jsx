@@ -65,7 +65,7 @@ export const Rent = ({ token }) => {
             url: "https://househunter.up.railway.app/properties/rented",
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
-        }).then((res) => { if (res.properties) { setdata(res.properties) } })
+        }).then((res) => { if (res.data.properties) { setdata(res.data.properties) } })
             .catch((err) => console.log(err))
     }, [])
 
