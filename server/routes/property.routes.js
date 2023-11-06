@@ -11,10 +11,12 @@ const showMySellProperty = require("../controllers/property/showMySellProperties
 const showMySoldProperties = require("../controllers/property/showMySoldProperties")
 const showMyLeasedProperties = require("../controllers/property/showMyLeasedProperties")
 const showMyRentProperty = require("../controllers/property/showMyRentProperties")
+const search = require("../controllers/property/search")
 const propertyRoute = express.Router()
 
 propertyRoute.get("/rent", showRentProperties)
 propertyRoute.get("/buy", showSellProperties)
+propertyRoute.get("/search", search)
 propertyRoute.use(auth)
 propertyRoute.get("/bought", showMySellProperty)
 propertyRoute.get("/rented", showMyRentProperty)
