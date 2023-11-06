@@ -1,7 +1,8 @@
 ### synonymous-nose-6503
 ### HouseHunter
 
-![House](https://github.com/amolkpatil22/synonymous-nose-6503/assets/130379028/15480c52-ce83-4d60-8481-19fef89f6c79)
+![House](https://github.com/amolkpatil22/synonymous-nose-6503/assets/130379028/b9ecfd49-a5e0-4291-ba50-2f8a366f37c9)
+
 
 
 ## Website Link: 
