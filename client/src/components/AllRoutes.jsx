@@ -11,6 +11,7 @@ import Admin from "../pages/Login/Admin"
 
 import Checkout from "./Checkout"
 import PropertyCard from "./PropertyCard"
+import Checkout2 from "./Checkout2"
 
 
 
@@ -31,6 +32,7 @@ export const AllRoutes = () => {
 
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/checkout/:id" element={<Checkout/>}/>
+            <Route path="/checkout2/:id" element={<Checkout2/>}/>
         </Routes>
     )
 }

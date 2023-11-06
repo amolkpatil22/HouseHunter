@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-function PropertyCard({ property }) {
+function PropertyCard2({ property }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function PropertyCard({ property }) {
 console.log(property)
   return (
     <StyledPropertyCard>
-      <Link to={`/checkout/${property._id}`}>
+      <Link to={`/checkout2/${property._id}`}>
         <ImageContainer>
           <PropertyImage
             src={property.images[currentImageIndex]}
@@ -38,7 +38,7 @@ console.log(property)
   );
 }
 
-export default PropertyCard;
+export default PropertyCard2;
 
 const StyledPropertyCard = styled.div`
   display: flex;
