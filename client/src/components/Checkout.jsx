@@ -3,24 +3,24 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 const Checkout = () => {
-  const [propertiesData,setPropertiesData] = useState([])
+  const [propertiesData, setPropertiesData] = useState([])
   const { id } = useParams();
-  const property = propertiesData.find((e)=>e._id===id)
-  console.log(property)
+  const property = propertiesData.find((e) => e._id === id)
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(property)
+
   };
-console.log(property)
+
   useEffect(() => {
     axios({
-        url: "https://househunter.up.railway.app/properties/rent",
-        method: "GET",
-        headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
+      url: "https://househunter.up.railway.app/properties/rent",
+      method: "GET",
+      headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setPropertiesData(res.data.properties) })
-        .catch((err) => console.log(err))
+      .catch((err) => console.log(err))
   }, [])
-console.log(propertiesData)
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -28,30 +28,30 @@ console.log(propertiesData)
       setCurrentImageIndex((prevIndex) =>
         prevIndex === property?.images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); 
+    }, 3000);
     return () => clearInterval(interval);
   }, [property]);
 
   return (
     <StyledPropertyCard>
-        <ImageContainer>
-          <PropertyImage
-            src={property.images[currentImageIndex]}
-            alt={`Property Image ${currentImageIndex}`}
-          />
-        </ImageContainer>
-        <PropertyInfo>
-          <h3 style={{ fontSize: 'large', fontWeight: 'bold', marginBottom: '15px' }}>{property.name}</h3>
-          <p>Price: ${property.price}</p>
-          <p>Bedrooms: {property.bedrooms} BHK</p>
-          <p>Area: {property.livingArea} sqft</p>
-          <AddressInfo>
-            Address: {property.streetAddress}, {property.location}, {property.state}, {property.zipcode}, {property.country}
-          </AddressInfo>
-          <p>Listed By: {property.listedBy}</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, minima necessitatibus eaque natus rerum officiis corrupti, sit et, magni deleniti fugiat architecto enim ipsum vel accusamus totam dignissimos beatae ut praesentium. Minus ea quos consectetur debitis cum autem laborum explicabo mollitia ducimus atque ex tempora, officiis ut modi quis asperiores.</p>
-          <button style={{padding:"10px 40px", backgroundColor:"skyblue", borderRadius:"5px", marginTop:' 5%'}}>Buy Now</button>
-        </PropertyInfo>
+      <ImageContainer>
+        <PropertyImage
+          src={property?.images[currentImageIndex]}
+          alt={`Property Image ${currentImageIndex}`}
+        />
+      </ImageContainer>
+      <PropertyInfo>
+        <h3 style={{ fontSize: 'large', fontWeight: 'bold', marginBottom: '15px' }}>{property?.name}</h3>
+        <p>Price: ${property?.price}</p>
+        <p>Bedrooms: {property?.bedrooms} BHK</p>
+        <p>Area: {property?.livingArea} sqft</p>
+        <AddressInfo>
+          Address: {property?.streetAddress}, {property?.location}, {property?.state}, {property?.zipcode}, {property?.country}
+        </AddressInfo>
+        <p>Listed By: {property?.listedBy}</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, minima necessitatibus eaque natus rerum officiis corrupti, sit et, magni deleniti fugiat architecto enim ipsum vel accusamus totam dignissimos beatae ut praesentium. Minus ea quos consectetur debitis cum autem laborum explicabo mollitia ducimus atque ex tempora, officiis ut modi quis asperiores.</p>
+        <button style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
+      </PropertyInfo>
     </StyledPropertyCard>
   );
 };
