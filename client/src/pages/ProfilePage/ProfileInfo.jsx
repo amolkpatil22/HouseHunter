@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles } from "@chakra-ui/react";
+import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Stack, Spinner, Grid } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { SpinnerLoader } from "./ProfileComponent/Spinner";
 let initdata = {
     name: "",
     email: "",
@@ -10,10 +11,19 @@ let initdata = {
     mobile: "",
 }
 
-export const ProfileInfo = ({ userdata }) => {
+export const ProfileInfo = () => {
     let [editStatus, setEditStatus] = useState(true)
 
     const [userInfo, setUserInfo] = useState(initdata);
+
+
+    const { userdata, isLoading, isError } = useSelector((store) => {
+        return {
+            isLoading: store.profileReducer.isLoading,
+            isError: store.profileReducer.isError,
+            userdata: store.profileReducer.userdata,
+        }
+    }, shallowEqual)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -24,7 +34,7 @@ export const ProfileInfo = ({ userdata }) => {
     };
 
     useEffect(() => {
-        
+
         setUserInfo({ name: userdata?.name, email: userdata?.email, password: userdata?.password, mobile: userdata?.mobile })
     }, [userdata])
 
@@ -39,7 +49,10 @@ export const ProfileInfo = ({ userdata }) => {
 
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
-            <form onSubmit={handleSaveChanges}>
+
+            {isLoading && <SpinnerLoader />}
+
+            {!isLoading && <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4">
                     <FormLabel>Name:</FormLabel>
                     <Input isDisabled={editStatus}
@@ -96,7 +109,7 @@ export const ProfileInfo = ({ userdata }) => {
                 {editStatus == true && <Button onClick={() => setEditStatus(false)} colorScheme="orange">Edit Details</Button>}
                 {editStatus == false && <Button type="submit" colorScheme="blue">Save Changes</Button>}
 
-            </form>
+            </form>}
         </Box>
     )
 }

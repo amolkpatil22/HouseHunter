@@ -1,13 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles } from "@chakra-ui/react";
+import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Grid, Spinner } from "@chakra-ui/react";
+import { shallowEqual, useSelector } from "react-redux";
 
 let initdata = {
     pan: ""
 }
 
-export const Pan = ({ userdata }) => {
+export const Pan = () => {
     const [userInfo, setUserInfo] = useState(initdata);
     let [editStatus, setEditStatus] = useState(true)
+
+    const { userdata, isLoading, isError } = useSelector((store) => {
+        return {
+            isLoading: store.profileReducer.isLoading,
+            isError: store.profileReducer.isError,
+            userdata: store.profileReducer.userdata,
+        }
+    }, shallowEqual)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +42,15 @@ export const Pan = ({ userdata }) => {
 
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
-            <form onSubmit={handleSaveChanges}>
+            {isLoading && <Grid justifyContent={"center"} height={"400px"} alignItems={"center"}> <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='blue.500'
+                size='xl'
+            /></Grid>}
+
+            {!isLoading && <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4" textAlign={"left"}>
                     <FormLabel>Pan:</FormLabel>
                     <Input isDisabled={editStatus}
@@ -57,7 +74,7 @@ export const Pan = ({ userdata }) => {
                 {editStatus == false && <Button type="submit" colorScheme="blue">
                     Save Changes
                 </Button>}
-            </form>
+            </form>}
         </Box>
     )
 }
