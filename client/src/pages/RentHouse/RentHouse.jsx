@@ -16,7 +16,7 @@ useEffect(() => {
       url: "https://househunter.up.railway.app/properties/rent",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-  }).then((res) => { setPropertiesData(res.data.properties) })
+  }).then((res) => {console.log(res); setPropertiesData(res.data.properties) })
       .catch((err) => console.log(err))
 }, [])
 console.log(propertiesData)
@@ -45,7 +45,7 @@ const handleSortChange = (e) => {
       return 0;
     })
     .slice(indexOfFirstProperty, indexOfLastProperty);
-
+console.log(propertiesData)
   return (
     <Container>
       <h2 style={{ fontSize: 'xx-large', fontWeight: 'bold', marginBottom: '15px' }}>
@@ -66,7 +66,7 @@ const handleSortChange = (e) => {
       </SearchAndFilterContainer>
 
       <PropertiesList>
-        {propertiesData.map((property) => (
+        {propertiesData?.map((property) => (
           <PropertyCard key={property.id} property={property} />
         ))}
       </PropertiesList>

@@ -91,7 +91,7 @@ export const Rent = ({ token }) => {
                                                 {e.description}
                                             </Text>
                                             <Text color='green.600' fontSize='xl'>
-                                                Status: {e.status} ✅
+                                                Status: Rented ✅
                                             </Text>
                                             <Button onClick={onOpen} colorScheme="orange" size={"sm"} width={"50%"} margin={"auto"}>View</Button>
                                         </Stack>
@@ -121,7 +121,7 @@ export const Rent = ({ token }) => {
                                                 <ImageSlider images={e.images} />
                                                 <Stack mt='6' spacing='3' alignContent={"center"} >
 
-                                                    <Text >
+                                                    <Text overflow={"hidden"} maxHeight={"100px"}>
                                                         {e.description}
                                                     </Text>
                                                     <Flex justifyContent={"space-between"}>
