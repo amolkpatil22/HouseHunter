@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import PropertyCard from '../../components/PropertyCard';
-import propertiesData from './data';
-
+//import propertiesData from './data';
+import axios from "axios"
 const RentHouse = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProperties, setFilteredProperties] = useState(propertiesData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const propertiesPerPage = 9;
-  const [sortOption, setSortOption] = useState('price');
+const [propertiesData, setPropertiesData] = useState([])
+const [searchTerm, setSearchTerm] = useState('');
+const [filteredProperties, setFilteredProperties] = useState(propertiesData);
+const [currentPage, setCurrentPage] = useState(1);
+const propertiesPerPage = 9;
+const [sortOption, setSortOption] = useState('price');
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+useEffect(() => {
+  axios.get("https://househunter.up.railway.app/properties")
+    .then((response) => {
+      setPropertiesData(response.data);
+      setFilteredProperties(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+}, []);
+console.log(propertiesData)
+const handleSearchChange = (e) => {
+  setSearchTerm(e.target.value);
+};
 
-  const handleSortChange = (e) => {
-    setSortOption(e.target.value);
-  };
+const handleSortChange = (e) => {
+  setSortOption(e.target.value);
+};
 
   const filterProperties = () => {
     const filtered = propertiesData.filter((property) =>
