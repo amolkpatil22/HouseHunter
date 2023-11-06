@@ -21,6 +21,17 @@ const Checkout = () => {
       .catch((err) => console.log(err))
   }, [])
 
+
+  const handlesumbit = () => {
+    axios({
+      url: `https://househunter.up.railway.app/properties/book/${id}`,
+      method: "patch",
+      headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
+    }).then((res) => {console.log(res); alert("Property Added") })
+      .catch((err) => console.log(err))
+  }
+
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -50,7 +61,7 @@ const Checkout = () => {
         </AddressInfo>
         <p>Listed By: {property?.listedBy}</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, minima necessitatibus eaque natus rerum officiis corrupti, sit et, magni deleniti fugiat architecto enim ipsum vel accusamus totam dignissimos beatae ut praesentium. Minus ea quos consectetur debitis cum autem laborum explicabo mollitia ducimus atque ex tempora, officiis ut modi quis asperiores.</p>
-        <button style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
+        <button onClick={handlesumbit} style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
       </PropertyInfo>
     </StyledPropertyCard>
   );

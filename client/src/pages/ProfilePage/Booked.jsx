@@ -64,7 +64,7 @@ export const Booked = ({ token }) => {
             url: "https://househunter.up.railway.app/properties/bought",
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
-        }).then((res) => {console.log(res); if (res.properties) { setdata(res.properties) } })
+        }).then((res) => {console.log(res); if (res.data.properties) { setdata(res.data.properties) } })
             .catch((err) => console.log(err))
     }, [])
 
