@@ -2,11 +2,14 @@ const PropertyModel = require("../../models/property.model")
 
 const search = async (req, res) => {
   try {
+    let query={}
+     
+  
+      if (req.query.name) {
+          query.name = { $regex: req.query.q, $options: 'i' }; 
+      }
     console.log(req.query)
-    const result = await PropertyModel.find({
-      ...req.query,
-      status: 0,
-    })
+    const result = await PropertyModel.find(query)
     if (result.length) {
       res.status(200).send({
         count: result.length,
