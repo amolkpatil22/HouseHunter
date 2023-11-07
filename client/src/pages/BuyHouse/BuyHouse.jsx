@@ -6,25 +6,48 @@ import axios from "axios"
 import PropertyCard2 from '../../components/PropertyCard2';
 import { SpinnerLoader } from '../ProfilePage/ProfileComponent/Spinner';
 import { Button } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
+
 const BuyHouse = () => {
   const [propertiesData, setPropertiesData] = useState([])
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProperties, setFilteredProperties] = useState(propertiesData);
+
+  const [searchParams,setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("query")||'');
+  const [filteredProperties, setFilteredProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
   const [sortOption, setSortOption] = useState('price');
   const [isLoading, setisLoading] = useState(false)
 
+  let search = searchParams.getAll("query");
 
+    const params={
+        q:search,
+    }
+  
   useEffect(() => {
     setisLoading(true)
+    if(searchTerm){
+      setSearchParams({query:searchTerm})
+  }
+  else{
+     setSearchParams()
+  }
+
+// axios.get("https://househunter.up.railway.app/properties/search",{
+//   params, headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
+// }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
+// .catch((err) => { setisLoading(false); console.log(err) })
+// }, [searchTerm])
+
     axios({
-      url: "https://househunter.up.railway.app/properties/buy",
+      url: "https://househunter.up.railway.app/properties/search",
       method: "GET",
+      q:params,
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
       .catch((err) => { setisLoading(false); console.log(err) })
-  }, [])
+  }, [searchTerm])
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -32,25 +55,35 @@ const BuyHouse = () => {
 
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
+    // filterAndSortProperties();
   };
 
-  const filterProperties = () => {
+  const filterAndSortProperties = () => {
     const filtered = propertiesData.filter((property) =>
       property.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredProperties(filtered);
-    setCurrentPage(1);
-  };
-  const indexOfLastProperty = currentPage * propertiesPerPage;
-  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
-  const currentProperties = filteredProperties
-    .sort((a, b) => {
+    const sortedProperties = filtered.slice().sort((a, b) => {
       if (sortOption === 'price') {
         return a.price - b.price;
       }
+      // Add more sorting options as needed.
       return 0;
-    })
-    .slice(indexOfFirstProperty, indexOfLastProperty);
+    });
+
+    setFilteredProperties(sortedProperties);
+    setCurrentPage(1);
+  };
+  
+  // useEffect(() => {
+  //   filterAndSortProperties();
+  // }, [searchTerm, sortOption, propertiesData]);
+
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const currentProperties = filteredProperties.slice(
+    indexOfFirstProperty,
+    indexOfLastProperty
+  );
 
   return (
     <Container>
@@ -71,7 +104,7 @@ const BuyHouse = () => {
         <Button size={"md"} margin={"10px"} colorScheme='blue'
           _hover={{
             bg: "green.600", color: "white"
-          }} onClick={filterProperties}>Search</Button>
+          }} onClick={filterAndSortProperties}>Search</Button>
       </SearchAndFilterContainer>
       {isLoading && <SpinnerLoader />}
       {!isLoading && <PropertiesList >
