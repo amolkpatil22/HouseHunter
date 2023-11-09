@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import { SpinnerLoader } from '../pages/ProfilePage/ProfileComponent/Spinner';
-const Checkout = () => {
+
+
+const Checkout2 = () => {
   const [propertiesData, setPropertiesData] = useState([])
   const { id } = useParams();
   const property = propertiesData?.find((e) => e._id === id)
@@ -17,7 +19,7 @@ const Checkout = () => {
   useEffect(() => {
     setisLoading(true)
     axios({
-      url: "https://househunter.up.railway.app/properties/rent",
+      url: "https://househunter.up.railway.app/properties/buy",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); setPropertiesData(res.data.properties) })
@@ -48,33 +50,44 @@ const Checkout = () => {
 
   return (
     <Box>
-      {isLoading && <SpinnerLoader></SpinnerLoader>}
-      {!isLoading && <StyledPropertyCard>
-        <ImageContainer>
-          <PropertyImage
-            src={property?.images[currentImageIndex]}
-            alt={`Property Image ${currentImageIndex}`}
-          />
-        </ImageContainer>
-        <PropertyInfo>
-          {/* <h3>{property?.description}</h3> */}
-          {/* <h3 style={{ fontSize: 'large', fontWeight: 'bold', marginBottom: '15px' }}>{property?.name}</h3> */}
-          <p>Price: ${property?.price}</p>
-          <p>Bedrooms: {property?.beds} BHK</p>
-          <p>Area: {property?.living_area} sqft</p>
-          <AddressInfo>
-            Address: {property?.address}
-          </AddressInfo>
-          <p>Listed By: {property?.name}</p>
-          <h3 style={{ overflowY: "hidden", maxHeight: "240px" }}>{property?.description}</h3>
-          <button onClick={handlesumbit} style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
-        </PropertyInfo>
-      </StyledPropertyCard>}
+      {isLoading && <SpinnerLoader />}
+      {!isLoading && <div>
+        <div>
+          <StyledPropertyCard>
+            <ImageContainer>
+              <PropertyImage
+                src={property?.images[currentImageIndex]}
+                alt={`Property Image ${currentImageIndex}`}
+              />
+            </ImageContainer>
+            <PropertyInfo>
+              {/* <h3 style={{ fontSize: 'large', fontWeight: 'bold', marginBottom: '15px' }}>{property?.name}</h3> */}
+              <p>Price: ${property?.price}</p>
+              <p>Bedrooms: {property?.beds} BHK</p>
+              <p>Area: {property?.living_area} sqft</p>
+              <AddressInfo>
+                Address: {property?.streetAddress}, {property?.location}, {property?.state}, {property?.zipcode}, {property?.country}
+              </AddressInfo>
+              <p>Listed By: {property?.name}</p>
+              <p style={{ overflowY: "hidden", maxHeight: "240px" }} >{property?.description}</p>
+              <button onClick={handlesumbit} style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
+            </PropertyInfo>
+            {/* <Box>
+      <Image src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wfp3fvaw3496f7z7vfrh.png" alt="Amenities"></Image>
+      </Box> */}
+          </StyledPropertyCard>
+        </div>
+        <div>
+          <Box>
+            <Image src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wfp3fvaw3496f7z7vfrh.png" alt="Amenities"></Image>
+          </Box>
+        </div>
+      </div>}
     </Box>
-  )
+  );
 };
 
-export default Checkout;
+export default Checkout2;
 
 const StyledPropertyCard = styled.div`
   display: flex;

@@ -1,18 +1,29 @@
-import React, { useRef, useState } from "react";
-import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles } from "@chakra-ui/react";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Stack, Grid } from "@chakra-ui/react";
+import { shallowEqual, useSelector } from "react-redux";
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import {  SpinnerLoader } from "./ProfileComponent/Spinner";
 
 let initdata = {
-    Address: "",
+    address: "",
     street: "",
     city: "",
     state: "",
-    postalCode: "",
-    country: "",
+    postal_code: "",
 }
 
 export const Address = () => {
     const [userInfo, setUserInfo] = useState(initdata);
     let [editStatus, setEditStatus] = useState(true)
+
+    const { userdata, isLoading, isError } = useSelector((store) => {
+        return {
+            isLoading: store.profileReducer.isLoading,
+            isError: store.profileReducer.isError,
+            userdata: store.profileReducer.userdata,
+        }
+    }, shallowEqual)
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -22,6 +33,18 @@ export const Address = () => {
         });
     };
 
+    useEffect(() => {
+        setUserInfo({
+            address: userdata?.address,
+            street: userdata?.street,
+            city: userdata?.city,
+            state: userdata?.state,
+            postal_code: userdata?.postal_code,
+            country: userdata?.country
+        })
+    }, [userdata])
+
+
     const handleSaveChanges = (e) => {
         e.preventDefault();
         // Implement your logic to update user account information here
@@ -30,16 +53,18 @@ export const Address = () => {
 
 
 
-
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
-            <form onSubmit={handleSaveChanges}>
+
+            {isLoading && <SpinnerLoader></SpinnerLoader>}
+
+            {!isLoading && <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4">
-                    <FormLabel>Address:</FormLabel>
+                    <FormLabel>address:</FormLabel>
                     <Input isDisabled={editStatus}
                         type="text"
-                        name="Address"
-                        value={userInfo.Address}
+                        name="address"
+                        value={userInfo?.address}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -50,7 +75,7 @@ export const Address = () => {
                         isDisabled={editStatus}
                         type="text"
                         name="street"
-                        value={userInfo.street}
+                        value={userInfo?.street}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -62,7 +87,7 @@ export const Address = () => {
                             isDisabled={editStatus}
                             type="text"
                             name="city"
-                            value={userInfo.city}
+                            value={userInfo?.city}
                             onChange={handleInputChange}
                             isRequired
                         />
@@ -72,8 +97,8 @@ export const Address = () => {
                         <Input
                             isDisabled={editStatus}
                             type="number"
-                            name="postalCode"
-                            value={userInfo.postalCode}
+                            name="postal_code"
+                            value={userInfo?.postal_code}
                             onChange={handleInputChange}
                             isRequired
                         />
@@ -85,7 +110,7 @@ export const Address = () => {
                         isDisabled={editStatus}
                         type="text"
                         name="state"
-                        value={userInfo.state}
+                        value={userInfo?.state}
                         onChange={handleInputChange}
                         isRequired
                     />
@@ -94,7 +119,7 @@ export const Address = () => {
                 {editStatus == false && <Button type="submit" colorScheme="blue">
                     Save Changes
                 </Button>}
-            </form>
+            </form>}
         </Box>
     )
 }

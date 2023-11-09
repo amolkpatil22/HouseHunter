@@ -8,7 +8,6 @@ const initialState={
     isAuthAdmin:false,
     token:JSON.parse(localStorage.getItem("token")) || "",
     username:JSON.parse(localStorage.getItem("username")) || ""
-
 };
 
 export const authReducer = (state = initialState, { type, payload }) => {

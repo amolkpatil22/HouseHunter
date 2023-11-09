@@ -8,27 +8,33 @@ import { Pan } from "./Pan";
 import { Booked } from "./Booked";
 import { Rent } from "./Rent";
 import { Sold } from "./Sold";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { GetUser } from "./actions";
 
 
 
 
 export const ProfilePage = () => {
     let [element, setelement] = useState("profile")
+    let dispatch = useDispatch()
+    const { userdata, isLoading, isError } = useSelector((store) => {
+        return {
+            isLoading: store.profileReducer.isLoading,
+            isError: store.profileReducer.isError,
+            userdata: store.profileReducer.userdata,
+        }
+    }, shallowEqual)
+
+
     const token = useSelector((store) => store.authReducer.token);
 
     useEffect(() => {
-        axios({
-            method: "GET",
-            url: "https://househunter.up.railway.app/user",
-            headers: { Authorization: `Bearer ${token}` },            
-        })
-            .then((res) => { console.log(res) })
-            .catch((err) => { console.log(err) })
-    })
+        if (!userdata) {
+            dispatch(GetUser(token))
+        }
+    }, [])
 
-    console.log(token)
+
     return (
         <Box className="mainbox" >
             <Flex gap={"1%"} mt={"4%"} mb={"4%"}  >
@@ -37,7 +43,7 @@ export const ProfilePage = () => {
                         <Image src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg" h={"60px"} w={"60px"} borderRadius={"50%"}></Image>
                         <Box textAlign={"left"} >
                             <Text>Hello,</Text>
-                            <Heading fontSize={"lg"}>Amol patil</Heading>
+                            <Heading fontSize={"lg"}>{userdata?.name}</Heading>
                         </Box>
                     </Flex>
                     <Flex padding={"10px"} boxShadow={"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;"} mt={"5%"} backgroundColor={"white"}>
@@ -61,9 +67,9 @@ export const ProfilePage = () => {
                     {element == "profile" && <ProfileInfo />}
                     {element == "address" && <Address />}
                     {element == "pan" && <Pan />}
-                    {element == "booked" && <Booked />}
-                    {element == "rented" && <Rent />}
-                    {element == "sold" && <Sold />}
+                    {element == "booked" && <Booked token={token} />}
+                    {element == "rented" && <Rent token={token} />}
+                    {element == "sold" && <Sold token={token} />}
                 </Box>
             </Flex>
         </Box>

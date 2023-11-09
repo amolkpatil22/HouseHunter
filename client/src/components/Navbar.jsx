@@ -90,9 +90,7 @@ const Navbar = () => {
   // const [state, setState] = useState("")
   // const [pan, setPan] = useState("")
 
-
   const isLoggedIn = !!token || null;
-
 
   useEffect(() => {
     localStorage.setItem("token", JSON.stringify(token));
@@ -231,9 +229,11 @@ const Navbar = () => {
 
     navigate(`/`);
   };
+
   const handleNavigateToLogin=()=>{
     navigate("/login")
   }
+
   return (
     <>
       <Box
@@ -476,7 +476,6 @@ const Navbar = () => {
           {/* {isAuth?<Link onClick={handleLogout}>LogOut</Link>:<Link onClick={openMainModal}>SignIn</Link>} */}
         </Box>
       </Box>
-
 
       {/* Login as Admin
 

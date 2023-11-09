@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Modal,
     ModalOverlay,
@@ -8,62 +8,32 @@ import {
     ModalBody,
     ModalCloseButton, Heading, Text, Divider, ButtonGroup, Box, Button, Card, CardBody, CardFooter, Stack, Image, Flex, Grid, grid, useDisclosure
 } from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ImageSlider from "./ProfileComponent/ImageSlider";
+import axios from "axios";
+import { SpinnerLoader } from "./ProfileComponent/Spinner";
 
 
-let data = [{
-    description: "Welcome to this spacious 5-bedroom family home in a quiet suburban neighborhood. The property offers a large backyard with a pool, perfect for summer gatherings. The open-concept kitchen and living area make it ideal for entertaining. Don't miss out on this fantastic opportunity!",
-    address: "123 Oak Street, Pleasantville, CA 98765",
-    street_name: "Oak Street",
-    state: "Maharashtra",
-    zipcode: 98765,
-    beds: 5,
-    baths: 3,
-    tags: ["Swimming Pool", "Open-Concept", "Family-Friendly"],
-    images: [
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif"
-    ],
-    living_area: 2500,
-    type: "sqft",
-    status: "FOR_SALE",
-    price: 450000,
-    name: "Family Oasis",
-    userID: "user123"
-}, {
-    description: "Welcome to this spacious 5-bedroom family home in a quiet suburban neighborhood. The property offers a large backyard with a pool, perfect for summer gatherings. The open-concept kitchen and living area make it ideal for entertaining. Don't miss out on this fantastic opportunity!",
-    address: "123 Oak Street, Pleasantville, CA 98765",
-    street_name: "Oak Street",
-    state: "New State",
-    zipcode: 98765,
-    beds: 5,
-    baths: 3,
-    tags: ["Swimming Pool", "Open-Concept", "Family-Friendly"],
-    images: [
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif",
-        "https://myhousemap.in/wp-content/uploads/single-floor-normal-house-front-elevation-designs-47%C3%9734-ft.avif"
-    ],
-    living_area: 2500,
-    type: "sqft",
-    status: "FOR_SALE",
-    price: 450000,
-    name: "Family Oasis",
-    userID: "user123"
-}]
-
-export const Sold = () => {
+export const Sold = ({ token }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const [data, setdata] = useState([])
+    const [isLoading, setisLoading] = useState(false)
+    useEffect(() => {
+        setisLoading(true)
+        axios({
+            url: "https://househunter.up.railway.app/properties/sold",
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` }
+        }).then((res) => { setisLoading(false); console.log(res); if (res.data.properties) { setdata(res.data.properties) } })
+            .catch((err) => { setisLoading(false); console.log(err) })
+    }, [])
 
 
 
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
             <Heading mb={"20px"} size={"lg"} color={"#2f742e"}>Total Properties:{data?.length || 0} </Heading>
-            <Grid gap={"30px"}>
+            {isLoading && <SpinnerLoader />}
+            {!isLoading && <Grid gap={"30px"}>
                 {data?.map((e) => {
                     return (
                         <Box>
@@ -139,7 +109,7 @@ export const Sold = () => {
 
                     )
                 })}
-            </Grid>
+            </Grid>}
         </Box>
     )
 }

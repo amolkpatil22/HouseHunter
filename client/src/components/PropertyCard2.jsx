@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-function PropertyCard({ property }) {
+function PropertyCard2({ property }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -10,13 +10,13 @@ function PropertyCard({ property }) {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === property.images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); 
+    }, 3000);
     return () => clearInterval(interval);
   }, [property.images]);
-console.log(property)
+  console.log(property)
   return (
     <StyledPropertyCard>
-      <Link to={`/checkout/${property._id}`}>
+      <Link to={`/checkout2/${property._id}`}>
         <ImageContainer>
           <PropertyImage
             src={property.images[currentImageIndex]}
@@ -38,7 +38,7 @@ console.log(property)
   );
 }
 
-export default PropertyCard;
+export default PropertyCard2;
 
 const StyledPropertyCard = styled.div`
   display: flex;
@@ -50,19 +50,22 @@ const StyledPropertyCard = styled.div`
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   max-width: 300px;
+
 `;
 
 const ImageContainer = styled.div`
   width: 100%;
   max-width: 95%;
   margin: 0 auto;
+
 `;
 
 const PropertyImage = styled.img`
-width: 300px;
+  width: 300px;
   height: 250px;
   display: block;
- 
+
+  
 `;
 
 const PropertyInfo = styled.div`
