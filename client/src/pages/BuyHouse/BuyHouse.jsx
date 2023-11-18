@@ -7,7 +7,6 @@ import PropertyCard2 from '../../components/PropertyCard2';
 import { SpinnerLoader } from '../ProfilePage/ProfileComponent/Spinner';
 import { Button } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
-
 const BuyHouse = () => {
   const [propertiesData, setPropertiesData] = useState([])
 
