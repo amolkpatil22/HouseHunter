@@ -10,10 +10,9 @@ const updateUser = async (req, res) => {
           if (err) {
             res.status(400).send({ error: err })
           } else {
-            const updatedPassword = await UserModel.findByIdAndUpdate(
-              userID,
-              hash
-            )
+            const updatedPassword = await UserModel.findByIdAndUpdate(userID, {
+              password: hash,
+            })
           }
         })
       }
