@@ -13,7 +13,7 @@ import Checkout from "./Checkout"
 import PropertyCard from "./PropertyCard"
 import Checkout2 from "./Checkout2"
 import { PrivateRoute } from "./PrivateRoute"
-
+import Payment from "./Payment"
 
 
 export const AllRoutes = () => {
@@ -29,7 +29,8 @@ export const AllRoutes = () => {
 
             <Route path={"/property"} element={<PropertyCard />} />
 
-            {/* <Route path={"/property"} element={<PropertiesPage />} /> */}
+            <Route path={"/checkout/:id/payment"} element={<Payment/>} />
+            <Route path={"/checkout2/:id/payment"} element={<Payment/>} />
 
             <Route path="/profile" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
             <Route path="/checkout/:id" element={<PrivateRoute><Checkout /></PrivateRoute>} />
