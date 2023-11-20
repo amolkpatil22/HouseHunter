@@ -21,8 +21,8 @@ const RentHouse = () => {
       url: "https://househunter.up.railway.app/properties/rent",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-    }).then((res) => {console.log(res); setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
-      .catch((err) => { console.log(err);setisLoading(false); console.log(err) })
+    }).then((res) => { console.log(res); setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
+      .catch((err) => { console.log(err); setisLoading(false); console.log(err) })
   }, [])
 
   const handleSearchChange = (e) => {
@@ -79,7 +79,7 @@ const RentHouse = () => {
         ))}
       </PropertiesList>}
 
-      <PaginationContainer style={{alignItems:"center",gap:"20px",marginTop:"50px"}}>
+      <PaginationContainer style={{ alignItems: "center", gap: "20px", marginTop: "50px" }}>
         <PaginationButton
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}

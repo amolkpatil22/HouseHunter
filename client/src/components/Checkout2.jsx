@@ -17,7 +17,7 @@ const Checkout2 = () => {
   useEffect(() => {
     setisLoading(true)
     axios({
-      url: "https://househunter.up.railway.app/properties/rented",
+      url: "https://househunter.up.railway.app/properties/rent",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); setPropertiesData(res.data.properties) })
