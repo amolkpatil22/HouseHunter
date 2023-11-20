@@ -89,13 +89,13 @@ export const Rent = ({ token }) => {
                                             borderRadius='lg'
                                         />
                                         <Stack mt='6' spacing='3' alignContent={"center"} >
-                                            <Heading size='md'>{e.name}</Heading>
-                                            <Text overflow={"hidden"} maxHeight={"50px"}>
-                                                {e.description}
-                                            </Text>
                                             <Text color='green.600' fontSize='xl'>
                                                 Status: Rented ✅
                                             </Text>
+                                            <Text overflow={"hidden"} maxHeight={"50px"}>
+                                                Description: {e.description}
+                                            </Text>
+                                            <Heading size='sm' fontWeight={"medium"}>Rented From: {e.name}</Heading>
                                             <Button onClick={onOpen} colorScheme="orange" size={"sm"} width={"50%"} margin={"auto"}>View</Button>
                                         </Stack>
                                     </Flex>
@@ -130,7 +130,7 @@ export const Rent = ({ token }) => {
                                                     <Flex justifyContent={"space-between"}>
                                                         <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Status:</Heading>{e.status}</Text>
                                                         <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Living Area:</Heading>{`${e.living_area} ${e.type}`}</Text>
-                                                        <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Living Area:</Heading>${e.price}</Text>
+                                                        <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Rent:</Heading>${e.price}/Year</Text>
                                                     </Flex>
                                                     <Text><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Address:</Heading>{`${e.address}, ${e.street_name},${e.zipcode}, ${e.state}`}</Text>
                                                     <Text><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Additional Information:</Heading>{`Beds: ${e.beds}  Baths:${e.baths}`}</Text>

@@ -13,7 +13,7 @@ import axios from "axios";
 import { SpinnerLoader } from "./ProfileComponent/Spinner";
 
 
-export const Sold = ({ token }) => {
+export const Listed = ({ token }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [data, setdata] = useState([])
     const [isLoading, setisLoading] = useState(false)
@@ -25,7 +25,7 @@ export const Sold = ({ token }) => {
             headers: { Authorization: `Bearer ${token}` }
         }).then((res) => {
             setisLoading(false); console.log(res); if (res.data.properties) {
-                let newdata = res.data.properties.filter((e) => e.status !== 0)
+                let newdata = res.data.properties.filter((e) => e.status !== 1)
                 setdata(newdata)
             }
         })
@@ -55,19 +55,15 @@ export const Sold = ({ token }) => {
                                                 Category: {e.type == "sell" ? "Sell" : "Leased"}
                                             </Text>
                                             <Text color='red.600' fontSize='l'>
-                                                Status: {e.type == "sell" ? "Sold Out" : "Leased"}🟢
+                                                Status: Pending🟡
                                             </Text>
-                                            <Text color='blue.600' >
-                                                Buyer Name: {e.buyerName}
+                                            <Text color={"blue.600"}>
+                                                Price: ${e.price}
                                             </Text>
                                             <Text overflow={"hidden"} maxHeight={"50px"}>
                                                 {e.description}
                                             </Text>
-
-
-
-
-
+                                         
                                             <Button onClick={onOpen} colorScheme="orange" size={"sm"} width={"50%"} margin={"auto"}>View</Button>
                                         </Stack>
                                     </Flex>
@@ -95,12 +91,11 @@ export const Sold = ({ token }) => {
                                             <CardBody >
                                                 <ImageSlider images={e.images} />
                                                 <Stack mt='6' spacing='3' alignContent={"center"} >
-
                                                     <Text >
                                                         {e.description}
                                                     </Text>
                                                     <Flex justifyContent={"space-between"}>
-                                                        <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Status:</Heading>{e.type == "sell" ? "Sold Out" : "Leased"}</Text>
+                                                        <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Status:</Heading>Listed</Text>
                                                         <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Living Area:</Heading>{`${e.living_area} ${e.type}`}</Text>
                                                         <Text ><Heading marginRight={"10px"} display={"inline"} size={"sm"}>🟢Price:</Heading>${e.price}</Text>
                                                     </Flex>
