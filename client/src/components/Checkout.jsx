@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 import { SpinnerLoader } from '../pages/ProfilePage/ProfileComponent/Spinner';
 const Checkout = () => {
@@ -30,7 +30,7 @@ const Checkout = () => {
       url: `https://househunter.up.railway.app/properties/book/${id}`,
       method: "patch",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-    }).then((res) => { console.log(res); alert("Property Added") })
+    }).then((res) => { console.log(res);})
       .catch((err) => console.log(err))
   }
 
@@ -67,7 +67,9 @@ const Checkout = () => {
           </AddressInfo>
           <p>Listed By: {property?.name}</p>
           <h3 style={{ overflowY: "hidden", maxHeight: "240px" }}>{property?.description}</h3>
-          <button onClick={handlesumbit} style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
+          <Link to={`/checkout/${id}/payment`}>
+            <button onClick={handlesumbit} style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
+          </Link>
         </PropertyInfo>
       </StyledPropertyCard>}
     </Box>
