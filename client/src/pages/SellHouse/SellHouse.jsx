@@ -110,7 +110,7 @@ function SellHouse() {
        // Set text color to contrast with the background
       >
        <Heading mb={4}> Sell your home with confidence </Heading>
-       <Text fontSize='lg'>Zillow is making it simpler to sell your home and move forward.</Text>
+       <Text fontSize='lg'>House Hunter is making it simpler to sell your home and move forward.</Text>
      </Box>  
      
      <Heading as="h2" size="xl" margin="20px">

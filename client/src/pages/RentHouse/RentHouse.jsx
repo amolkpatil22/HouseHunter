@@ -2,27 +2,55 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import PropertyCard from '../../components/PropertyCard';
-import axios from "axios"
+import axios from 'axios';
 import { SpinnerLoader } from '../ProfilePage/ProfileComponent/Spinner';
 import { Button } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
+
 const RentHouse = () => {
-  const [propertiesData, setPropertiesData] = useState([])
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredProperties, setFilteredProperties] = useState(propertiesData);
+  const [propertiesData, setPropertiesData] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('query') || '');
+  const [filteredProperties, setFilteredProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
   const [sortOption, setSortOption] = useState('price');
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
+
+  let search = searchParams.getAll('query');
+
+  const params = {
+    q: search,
+  };
 
   useEffect(() => {
-    setisLoading(true)
+    setisLoading(true);
+    if (searchTerm) {
+      setSearchParams({ query: searchTerm });
+    } else {
+      setSearchParams();
+    }
+
     axios({
-      url: "https://househunter.up.railway.app/properties/rent",
-      method: "GET",
-      headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-    }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
-      .catch((err) => { setisLoading(false); console.log(err) })
-  }, [])
+      url: 'https://househunter.up.railway.app/properties/rent',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}` },
+    })
+      .then((res) => {
+        setisLoading(false);
+        console.log(res);
+        setPropertiesData(res.data.properties);
+        filterAndSortProperties();
+      })
+      .catch((err) => {
+        setisLoading(false);
+        console.log(err);
+      });
+  }, [searchTerm, sortOption]);
+
+  useEffect(() => {
+    filterAndSortProperties();
+  }, [propertiesData]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -32,23 +60,29 @@ const RentHouse = () => {
     setSortOption(e.target.value);
   };
 
-  const filterProperties = () => {
-    const filtered = propertiesData.filter((property) =>
-      property.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filterAndSortProperties = () => {
+    const filtered = propertiesData.filter(
+      (property) =>
+        property.address.toLowerCase().includes(searchTerm.toLowerCase()) // Updated to search by address
     );
-    setFilteredProperties(filtered);
+
+    let sortedProperties;
+    if (sortOption === 'price') {
+      sortedProperties = filtered.slice().sort((a, b) => a.price - b.price);
+    } else if (sortOption === 'price-desc') {
+      sortedProperties = filtered.slice().sort((a, b) => b.price - a.price);
+    } else {
+      // Add more sorting options as needed.
+      sortedProperties = filtered;
+    }
+
+    setFilteredProperties(sortedProperties);
     setCurrentPage(1);
   };
+
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
-  const currentProperties = filteredProperties
-    .sort((a, b) => {
-      if (sortOption === 'price') {
-        return a.price - b.price;
-      }
-      return 0;
-    })
-    .slice(indexOfFirstProperty, indexOfLastProperty);
+  const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty);
 
   return (
     <Container>
@@ -58,25 +92,36 @@ const RentHouse = () => {
       <SearchAndFilterContainer>
         <SearchInput
           type="text"
-          placeholder="Search by property name"
+          placeholder="Search by address"
           value={searchTerm}
           onChange={handleSearchChange}
         />
         <SortSelect onChange={handleSortChange} value={sortOption}>
-          <option value="price">Sort by Price</option>
-          {/* Add more sorting  */}
+          <option value="price">Sort by Ascending</option>
+          <option value="price-desc">Sort by Descending</option>
+          {/* Add more sorting options as needed */}
         </SortSelect>
-        <Button size={"md"} margin={"10px"} colorScheme='blue'
+        {/* <Button
+          size={'md'}
+          margin={'10px'}
+          colorScheme="blue"
           _hover={{
-            bg: "green.600", color: "white"
-          }} onClick={filterProperties}>Search</Button>
+            bg: 'green.600',
+            color: 'white',
+          }}
+          onClick={filterAndSortProperties}
+        >
+          Search
+        </Button> */}
       </SearchAndFilterContainer>
       {isLoading && <SpinnerLoader />}
-      {!isLoading && <PropertiesList>
-        {propertiesData?.map((property) => (
-          <PropertyCard key={property.id} property={property} />
-        ))}
-      </PropertiesList>}
+      {!isLoading && (
+        <PropertiesList>
+          {currentProperties.map((property) => (
+            <PropertyCard key={property.id} property={property} />
+          ))}
+        </PropertiesList>
+      )}
 
       <PaginationContainer>
         <PaginationButton
@@ -97,19 +142,19 @@ const RentHouse = () => {
   );
 };
 
-export default RentHouse
+export default RentHouse;
 
 const Container = styled.div`
   padding: 20px;
 `;
 
 const PropertiesList = styled.div`
-   display: flex;
+  display: flex;
   flex-wrap: wrap;
-  gap:10px;
-  width:90%;
-  margin:auto;
-  justify-content:center;
+  gap: 10px;
+  width: 90%;
+  margin: auto;
+  justify-content: center;
 `;
 
 const PaginationContainer = styled.div`
@@ -133,9 +178,9 @@ const SearchAndFilterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
-  width:90%;
-  margin:auto; 
+
+  width: 90%;
+  margin: auto;
   margin-bottom: 40px;
 `;
 
@@ -152,12 +197,3 @@ const SortSelect = styled.select`
   border: 1px solid #ccc;
   border-radius: 5px;
 `;
-
-// const SearchButton = styled.button`
-//   background-color: #007BFF;
-//   color: white;
-//   border: none;
-//   border-radius: 5px;
-//   padding: 10px 20px;
-//   cursor: pointer;
-//   `;

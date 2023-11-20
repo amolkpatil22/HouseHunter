@@ -25,12 +25,12 @@ function PropertyCard2({ property }) {
         </ImageContainer>
         <PropertyInfo>
           {/* <h3>{property.name}</h3> */}
-          <p>Price: ${property.price}</p>
+          <h3>Price: ${property.price}</h3>
           <p>Bedrooms: {property.beds} BHK</p>
           <p>Area: {property.living_area} sqft</p>
-          <AddressInfo>
+          <p>
             Address: {property.address}
-          </AddressInfo>
+          </p>
           <p>Listed By: {property.name}</p>
         </PropertyInfo>
       </Link>
