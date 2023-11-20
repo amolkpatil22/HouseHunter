@@ -3,7 +3,20 @@ const UserModel = require("../../models/user.model")
 const updateUser = async (req, res) => {
   try {
     const id = req.body.userID
+    const password = req.body.password
     if (id) {
+      if (password) {
+        bcrypt.hash(req.body.password, 3, async (err, hash) => {
+          if (err) {
+            res.status(400).send({ error: err })
+          } else {
+            const updatedPassword = await UserModel.findByIdAndUpdate(
+              userID,
+              hash
+            )
+          }
+        })
+      }
       const updatedUser = await UserModel.findByIdAndUpdate(id, {
         $set: { ...req.body },
       })
