@@ -57,6 +57,7 @@ export const ProfileInfo = () => {
                 })
             })
             .catch((err) => {
+                console.log(err)
                 toast({
                     title: 'Failed to update',
                     description: "Please try again",
