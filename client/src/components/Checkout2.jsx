@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Box, Button, useToast } from '@chakra-ui/react';
 import { SpinnerLoader } from '../pages/ProfilePage/ProfileComponent/Spinner';
+
 const Checkout2 = () => {
   const [propertiesData, setPropertiesData] = useState([])
   const { id } = useParams();
+  let toast = useToast()
+  let navigate = useNavigate()
   const property = propertiesData?.find((e) => e._id === id)
   const [isLoading, setisLoading] = useState(false)
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-  };
+  let [disablebtn, setdisablebtn] = useState(false)
 
   useEffect(() => {
     setisLoading(true)
     axios({
-      url: "https://househunter.up.railway.app/properties/buy",
+      url: "https://househunter.up.railway.app/properties/rented",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); setPropertiesData(res.data.properties) })
@@ -26,12 +26,34 @@ const Checkout2 = () => {
 
 
   const handlesumbit = () => {
+    setdisablebtn(true)
     axios({
       url: `https://househunter.up.railway.app/properties/book/${id}`,
       method: "patch",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-    }).then((res) => { console.log(res);})
-      .catch((err) => console.log(err))
+    }).then((res) => {
+      toast({
+        title: 'Payment Successful',
+        description: 'Property rented successfully!',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      setTimeout(() => {
+        navigate("/renthouse")
+      }, 3000);
+
+    })
+      .catch((err) => {
+        setdisablebtn(false);
+        toast({
+          title: 'Failed to Property',
+          description: 'Please try again later',
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      })
   }
 
 
@@ -67,9 +89,10 @@ const Checkout2 = () => {
           </AddressInfo>
           <p>Listed By: {property?.name}</p>
           <h3 style={{ overflowY: "hidden", maxHeight: "240px" }}>{property?.description}</h3>
-          <Link to={`/checkout/${id}/payment`}>
-            <button onClick={handlesumbit} style={{ padding: "10px 40px", backgroundColor: "skyblue", borderRadius: "5px", marginTop: ' 5%' }}>Buy Now</button>
-          </Link>
+
+          <Button isDisabled={disablebtn} marginTop={"30px"} onClick={handlesumbit} colorScheme='blue'>Book Now</Button>
+
+
         </PropertyInfo>
       </StyledPropertyCard>}
     </Box>

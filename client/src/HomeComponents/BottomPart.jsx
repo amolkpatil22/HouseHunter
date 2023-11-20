@@ -1,12 +1,17 @@
 import React from "react";
 import { styled } from "styled-components";
+import { useNavigate } from 'react-router-dom';
+
 
 const BottomPart = () => {
+
+  const navigate = useNavigate()
+
   return (
     <DIV>
       <div>
         <div className="columns-container">
-          <div className="column">
+          <div className="column" >
             <img
               src="https://www.zillowstatic.com/bedrock/app/uploads/sites/5/2022/07/Buy_a_home.webp"
               alt="Buy A Home"
@@ -17,7 +22,7 @@ const BottomPart = () => {
 
 
             </p>
-            <button>Browse homes</button>
+            <button onClick={()=> navigate("/buyhouse")}>Browse homes</button>
           </div>
           <div className="column">
             <img
@@ -30,7 +35,7 @@ const BottomPart = () => {
 
 
             </p>
-            <button>Find rentals </button>
+            <button onClick={()=> navigate("/renthouse")}>Find rentals </button>
           </div>
           <div className="column">
             <img
@@ -43,7 +48,7 @@ const BottomPart = () => {
 
 
             </p>
-            <button>See your options</button>
+            <button onClick={()=> navigate("/sellhouse")}>See your options</button>
           </div>
         </div>
       </div>

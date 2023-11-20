@@ -5,6 +5,7 @@ import { Sliders } from '../../HomeComponents/Sliders'
 import BottomPart from '../../HomeComponents/BottomPart'
 import BottomImage from '../../HomeComponents/BottomImage'
 import Footer from '../../components/Footer'
+import FAQAccordion from '../../HomeComponents/FrequentQuestions'
 
 const HomePage = () => {
   return (
@@ -12,7 +13,8 @@ const HomePage = () => {
         <TopSection/>
         <Sliders/>
         <BottomPart/>
-        <Footer/>
+        <FAQAccordion/>
+        {/* <Footer/> */}
         <BottomImage/>
         
     </div>

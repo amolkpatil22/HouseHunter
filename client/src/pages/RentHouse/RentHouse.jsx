@@ -5,6 +5,7 @@ import PropertyCard from '../../components/PropertyCard';
 import axios from "axios"
 import { SpinnerLoader } from '../ProfilePage/ProfileComponent/Spinner';
 import { Button } from '@chakra-ui/react';
+import PropertyCard2 from '../../components/PropertyCard2';
 const RentHouse = () => {
   const [propertiesData, setPropertiesData] = useState([])
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,8 +21,8 @@ const RentHouse = () => {
       url: "https://househunter.up.railway.app/properties/rent",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-    }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
-      .catch((err) => { setisLoading(false); console.log(err) })
+    }).then((res) => {console.log(res); setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
+      .catch((err) => { console.log(err);setisLoading(false); console.log(err) })
   }, [])
 
   const handleSearchChange = (e) => {
@@ -74,11 +75,11 @@ const RentHouse = () => {
       {isLoading && <SpinnerLoader />}
       {!isLoading && <PropertiesList>
         {propertiesData?.map((property) => (
-          <PropertyCard key={property.id} property={property} />
+          <PropertyCard2 key={property.id} property={property} />
         ))}
       </PropertiesList>}
 
-      <PaginationContainer>
+      <PaginationContainer style={{alignItems:"center",gap:"20px",marginTop:"50px"}}>
         <PaginationButton
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
@@ -121,7 +122,7 @@ const PaginationContainer = styled.div`
 const PaginationButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #3182CE;
   color: #fff;
   border: none;
   border-radius: 5px;

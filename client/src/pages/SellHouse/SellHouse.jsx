@@ -12,7 +12,8 @@ import {
   Select,
   Heading,
   Flex,
-  useToast
+  useToast,
+  Text
 } from '@chakra-ui/react';
 import axios from 'axios';
 
@@ -92,17 +93,42 @@ function SellHouse() {
   };
 
   return (
-    <Box
-      margin={"auto"}
-      mt={"40px"}
-      w={['100%', '100%', 'fit-content']} // Responsive width     
-      boxShadow="0 4px 8px 0 rgba(0,0,0,0.2)"
-      p={4}
-      mb={"50px"}
-    >
-      <Heading as="h2" size="xl" marginBottom="20px">
-        Sell Your House
+    <Box >
+        <Box 
+       backgroundImage="url('https://blog-media.dev.zg-core.com/bedrock/app/uploads/sites/11/2022/10/free-zestimate-bg-desktop.jpg')"
+       backgroundSize={"cover"}
+       backgroundRepeat={"no-repeat"}
+       width={"100%"}
+       height={"400px"}
+       display="flex"
+       flexDirection="column"
+       alignItems="center"
+       justifyContent="center"
+       textAlign="center"
+       color="white" 
+      //  mb={"5px"}
+       // Set text color to contrast with the background
+      >
+       <Heading mb={4}> Sell your home with confidence </Heading>
+       <Text fontSize='lg'>Zillow is making it simpler to sell your home and move forward.</Text>
+     </Box>  
+     
+     <Heading as="h2" size="xl" margin="20px">
+        Sell Your Home
       </Heading>
+    <Flex
+      margin={"auto"}
+      // backgroundImage="url('https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9ujjpnuikp0zh913hutw.png')"
+      mt={"20px"}
+      w={['90%', '90%', '95%']} // Responsive width     
+      // border={"1px solid grey"}
+      borderRadius={"10px"}
+      boxShadow="0 4px 8px 0 rgba(0,0,0,0.4)"
+      p={"30px"}
+      mb={"50px"}
+      
+    >
+      <Box w={"100%"}  mr={8} > 
       <form onSubmit={handleSubmit}>
         <VStack spacing="0">
           <Flex gap={"30px"} mb={"30px"}>
@@ -255,6 +281,16 @@ function SellHouse() {
           </Button>
         </VStack>
       </form>
+      </Box>
+{/* 
+      <Box display="flex"
+  justifyContent="center"
+  alignItems="center"
+  height="100vh"
+ >
+        <img src="https://delivery.digitalassets.zillowgroup.com/api/public/content/2x_Miso_Module_Vector_CMS_Full.png?v=69e15efc" alt="" />
+      </Box> */}
+    </Flex>
     </Box>
   );
 }
