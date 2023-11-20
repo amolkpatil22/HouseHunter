@@ -1,5 +1,5 @@
 import styles from "./Slider.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import {Heading } from "@chakra-ui/react";
 
@@ -44,6 +44,8 @@ export const MyCard = ({ src, cap }) => {
 
 export const Sliders = () => {
 
+  const navigate = useNavigate()
+
   const btnpressprev = () => {
     let box = document.querySelector(".productContainer");
     box.scrollLeft -= 300;
@@ -81,54 +83,56 @@ export const Sliders = () => {
             scrollBehavior: "smooth",
           }}
         >
-          <Link to="/">
+          <Link to="/checkout2/65489873cdace050df6efb19">
             <MyCard
-              src="https://photos.zillowstatic.com/fp/f35879c3ca693660efe0eb24796b424f-p_e.jpg"
-              cap="$299,999"
+              src="https://photos.zillowstatic.com/fp/c5dcca5036a99a36d5a6b4a13dc1ac2d-cc_ft_960.webp"
+              cap="$78,121"
             />
           </Link>
-          <Link to="/">
+          <Link to="/checkout2/65489098f8de6d89c6484d41">
             <MyCard
-              src="https://photos.zillowstatic.com/fp/bb0794f0d6c592a6585de0006849803f-p_e.jpg"
-              cap="$299,999"
+              src="https://photos.zillowstatic.com/fp/2364dbdd388375aa9134bf62278b37cc-cc_ft_1536.webp"
+              cap="$2,599/month"
             />
           </Link>
-          <Link to="/">
+          <Link to="/checkout2/65489595cdace050df6efaf4">
             <MyCard
-              src="https://photos.zillowstatic.com/fp/51970e2e318cc4330aecdbbc8f2899b9-p_e.jpg"
-              cap="$299,999"
+              src="https://photos.zillowstatic.com/fp/797ef5401b56713f5d3e4d20ff3a3bfa-cc_ft_576.webp"
+              cap="$29,000"
             />
           </Link>
-          <Link to="/">
+          <Link to="/checkout2/65489d5ecdace050df6efb64">
             <MyCard
-              src="https://photos.zillowstatic.com/fp/65fc65b518f6a8811c84efb672abe937-p_e.jpg"
-              cap="$299,999"
+              src="https://photos.zillowstatic.com/fp/afcbba732338215d63bf6cb7fbb5c1f7-cc_ft_576.webp"
+              cap="$3000/month"
             />
           </Link>
-          <Link to="/">
+          
+          <Link to="/checkout2/65489a1bff417933f08de7aa">
             <MyCard
-              src="https://photos.zillowstatic.com/fp/461fe05653427251133bb4aa5c0d4a55-p_e.jpg"
-              cap="$299,999"
+              src="https://photos.zillowstatic.com/fp/1232314075d079464aab4bad75f36de9-cc_ft_384.webp"
+              cap="$619,000"
             />
           </Link>
-          <Link to="/">
+          <Link to="/checkout2/65489cbfcdace050df6efb58">
             <MyCard
-              src="https://photos.zillowstatic.com/fp/57b87d71c4713d4af58091c9614f409d-p_e.jpg"
-              cap="₹1599/day"
+              src="https://photos.zillowstatic.com/fp/81b7fcf2f7b22ae6320cd78d1186a8d3-cc_ft_960.webp"
+              cap="$52,500"
             />
           </Link>
-          <Link to="/">
+        
+          <Link to="/checkout2/6548fb7425225990b4b3982c">
             <MyCard
-              src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/f43f3a4a651bbb4ca09e55d89f66df62-full.webp"
-              cap="$299,999"
+              src="https://photos.zillowstatic.com/fp/5e31c7679c053fd4a0e37bf3c298365b-cc_ft_576.webp"
+              cap="$552,499"
             />
           </Link>
-          <Link to="/">
+          {/* <Link to="/">
             <MyCard
               src="https://www.trulia.com/pictures/thumbs_4/zillowstatic/fp/237ad3401f68b4be3c1b601968f27ab8-full.webp"
               cap="$299,999"
             />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

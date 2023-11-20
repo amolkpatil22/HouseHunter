@@ -249,8 +249,8 @@ const Navbar = () => {
           <NewLink to="/buyhouse">Buy</NewLink>
           <NewLink to="/renthouse">Rent</NewLink>
           <NewLink to="/sellhouse">Sell</NewLink>
-          <NewLink>Home Loans</NewLink>
-          <NewLink >Agent Finder</NewLink>
+          <NewLink to={"/"}>Home Loans</NewLink>
+          <NewLink to={"/"}>Agent Finder</NewLink>
         </Box>
 
         {/* Logo */}
@@ -265,9 +265,9 @@ const Navbar = () => {
         {/* Other Links */}
 
         <Box w="35%" display="flex" justifyContent="space-around">
-          <NewLink >Manage Rentals</NewLink>
-          <NewLink >Advertisement</NewLink>
-          <NewLink > Help</NewLink>
+          <NewLink to={"/profile"} >Manage Rentals</NewLink>
+          <NewLink to={"/"}  >Advertisement</NewLink>
+          <NewLink to={"/"} > Help</NewLink>
           {isLoggedIn ? (
             <>
               <Menu>
