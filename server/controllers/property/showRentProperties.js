@@ -8,7 +8,7 @@ const showRentProperties = async (req, res) => {
     const properties = await PropertyModel.find({
       type: "rent",
       status: 0,
-      buyerID: userID,
+      // buyerID: userID,
     })
     //   .skip(skip)
     //   .limit(10)
