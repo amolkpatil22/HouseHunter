@@ -12,6 +12,7 @@ const showMySoldProperties = require("../controllers/property/showMySoldProperti
 const showMyLeasedProperties = require("../controllers/property/showMyLeasedProperties")
 const showMyRentProperty = require("../controllers/property/showMyRentProperties")
 const search = require("../controllers/property/search")
+const showAllListedProperties = require("../controllers/property/showAllListedProperties")
 const propertyRoute = express.Router()
 
 propertyRoute.get("/rent", showRentProperties)
@@ -26,5 +27,6 @@ propertyRoute.post("/add", createProperty)
 propertyRoute.delete("/delete/:_id", deleteProperty)
 propertyRoute.patch("/update/:_id", updateProperty)
 propertyRoute.patch("/book/:_id", bookProperty)
+propertyRoute.get("/all", showAllListedProperties)
 
 module.exports = propertyRoute
