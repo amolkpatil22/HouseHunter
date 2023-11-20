@@ -105,9 +105,7 @@ function Payment() {
   
     try {
       
-      if (!upi1 || !upi2 || !upi3) {
-        throw new Error("Please enter UPI IDs");
-      }
+      
       setisLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setStatus(true);

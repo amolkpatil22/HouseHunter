@@ -1,5 +1,6 @@
 import axios from "axios"
 import { getRequest, getsuccess } from "./ProfileReducer"
+import { useDispatch } from "react-redux"
 
 
 
@@ -14,3 +15,6 @@ export const GetUser = (token) => (dispatch) => {
         .catch((err) => { console.log(err) })
 
 }
+
+
+

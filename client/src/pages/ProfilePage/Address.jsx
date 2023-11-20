@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Stack, Grid } from "@chakra-ui/react";
-import { shallowEqual, useSelector } from "react-redux";
+import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Stack, Grid, useToast } from "@chakra-ui/react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
-import {  SpinnerLoader } from "./ProfileComponent/Spinner";
+import { SpinnerLoader } from "./ProfileComponent/Spinner";
+import axios from "axios";
+import { GetUser } from "./actions";
 
 let initdata = {
     address: "",
@@ -15,7 +17,9 @@ let initdata = {
 export const Address = () => {
     const [userInfo, setUserInfo] = useState(initdata);
     let [editStatus, setEditStatus] = useState(true)
-
+    let dispatch = useDispatch()
+    const toast = useToast()
+    const token = useSelector((store) => store.authReducer.token);
     const { userdata, isLoading, isError } = useSelector((store) => {
         return {
             isLoading: store.profileReducer.isLoading,
@@ -48,7 +52,30 @@ export const Address = () => {
     const handleSaveChanges = (e) => {
         e.preventDefault();
         // Implement your logic to update user account information here
-        console.log("User Info:", userInfo);
+        axios({
+            method: "PATCH",
+            url: "https://househunter.up.railway.app/user/update",
+            headers: { Authorization: `Bearer ${token}` },
+            data: userInfo
+        })
+            .then((res) => {
+                console.log(res); dispatch(GetUser(token)); toast({
+                    title: 'Data updated successfully',
+
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            })
+            .catch((err) => {
+                toast({
+                    title: 'Failed to update',
+                    description: "Please try again",
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            })
     };
 
 

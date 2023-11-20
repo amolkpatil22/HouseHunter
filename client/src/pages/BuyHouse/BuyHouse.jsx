@@ -10,8 +10,8 @@ import { useSearchParams } from 'react-router-dom';
 const BuyHouse = () => {
   const [propertiesData, setPropertiesData] = useState([])
 
-  const [searchParams,setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("query")||'');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || '');
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const propertiesPerPage = 6;
@@ -20,29 +20,28 @@ const BuyHouse = () => {
 
   let search = searchParams.getAll("query");
 
-    const params={
-        q:search,
-    }
-  
+  const params = {
+    q: search,
+  }
+
   useEffect(() => {
     setisLoading(true)
-    if(searchTerm){
-      setSearchParams({query:searchTerm})
-  }
-  else{
-     setSearchParams()
-  }
+    if (searchTerm) {
+      setSearchParams({ query: searchTerm })
+    }
+    else {
+      setSearchParams()
+    }
 
-// axios.get("https://househunter.up.railway.app/properties/search",{
-//   params, headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
-// }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
-// .catch((err) => { setisLoading(false); console.log(err) })
-// }, [searchTerm])
+    // axios.get("https://househunter.up.railway.app/properties/search",{
+    //   params, headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
+    // }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
+    // .catch((err) => { setisLoading(false); console.log(err) })
+    // }, [searchTerm])
 
     axios({
-      url: "https://househunter.up.railway.app/properties/search",
+      url: "https://househunter.up.railway.app/properties/buy",
       method: "GET",
-      q:params,
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); console.log(res); setPropertiesData(res.data.properties) })
       .catch((err) => { setisLoading(false); console.log(err) })
@@ -72,7 +71,7 @@ const BuyHouse = () => {
     setFilteredProperties(sortedProperties);
     setCurrentPage(1);
   };
-  
+
   // useEffect(() => {
   //   filterAndSortProperties();
   // }, [searchTerm, sortOption, propertiesData]);
@@ -108,11 +107,11 @@ const BuyHouse = () => {
       {isLoading && <SpinnerLoader />}
       {!isLoading && <PropertiesList >
         {propertiesData && propertiesData?.map((property) => (
-          <PropertyCard2 key={property.id} property={property} />
+          <PropertyCard key={property.id} property={property} />
         ))}
       </PropertiesList>}
 
-      <PaginationContainer>
+      <PaginationContainer style={{ alignItems: "center", gap: "20px", marginTop: "50px" }}>
         <PaginationButton
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
@@ -155,7 +154,7 @@ const PaginationContainer = styled.div`
 const PaginationButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #3182CE;
   color: #fff;
   border: none;
   border-radius: 5px;

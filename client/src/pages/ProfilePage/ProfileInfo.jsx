@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Stack, Spinner, Grid } from "@chakra-ui/react";
+import { Box, Input, Button, FormControl, FormLabel, Textarea, Flex, useStatStyles, Stack, Spinner, Grid, useToast } from "@chakra-ui/react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import { SpinnerLoader } from "./ProfileComponent/Spinner";
+import { GetUser } from "./actions";
 let initdata = {
-    name: "",
-    email: "",
     password: "",
     mobile: "",
 }
 
 export const ProfileInfo = () => {
+    const toast = useToast()
     let [editStatus, setEditStatus] = useState(true)
-
+    let dispatch = useDispatch()
     const [userInfo, setUserInfo] = useState(initdata);
-
+    const token = useSelector((store) => store.authReducer.token);
 
     const { userdata, isLoading, isError } = useSelector((store) => {
         return {
@@ -41,11 +41,34 @@ export const ProfileInfo = () => {
     const handleSaveChanges = (e) => {
         e.preventDefault();
         // Implement your logic to update user account information here
-        console.log("User Info:", userInfo);
+        axios({
+            method: "PATCH",
+            url: "https://househunter.up.railway.app/user/update",
+            headers: { Authorization: `Bearer ${token}` },
+            data: { password: userInfo.password, mobile: userInfo.mobile }
+        })
+            .then((res) => {
+                console.log(res); dispatch(GetUser(token)); toast({
+                    title: 'Data updated successfully',
+
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            })
+            .catch((err) => {
+                toast({
+                    title: 'Failed to update',
+                    description: "Please try again",
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                })
+            })
     };
 
 
-
+    console.log(userdata)
 
     return (
         <Box width={"800px"} mx="auto" p="20px" boxShadow="lg" borderRadius="md" bg="white">
@@ -55,7 +78,7 @@ export const ProfileInfo = () => {
             {!isLoading && <form onSubmit={handleSaveChanges}>
                 <FormControl mb="4">
                     <FormLabel>Name:</FormLabel>
-                    <Input isDisabled={editStatus}
+                    <Input isDisabled={true}
                         type="text"
                         name="name"
                         value={userInfo?.name}
@@ -66,7 +89,7 @@ export const ProfileInfo = () => {
                 <FormControl mb="4">
                     <FormLabel>Email:</FormLabel>
                     <Input
-                        isDisabled={editStatus}
+                        isDisabled={true}
                         type="text"
                         name="email"
                         value={userInfo?.email}

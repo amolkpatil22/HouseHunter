@@ -7,9 +7,10 @@ import { Address } from "./Address";
 import { Pan } from "./Pan";
 import { Booked } from "./Booked";
 import { Rent } from "./Rent";
-import { Sold } from "./Sold";
+import { Listed } from "./Listed";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { GetUser } from "./actions";
+import { Sold } from "./Sold";
 
 
 
@@ -58,7 +59,8 @@ export const ProfilePage = () => {
                             <UnorderedList cursor={"pointer"} marginLeft={"50px"} textAlign={"left"}>
                                 <ListItem className="listitem" listStyleType={"none"} onClick={() => { setelement("booked") }} >Booked Properties</ListItem>
                                 <ListItem className="listitem" listStyleType={"none"} onClick={() => { setelement("rented") }} >Rented Properties</ListItem>
-                                <ListItem className="listitem" listStyleType={"none"} onClick={() => setelement("sold")}>Sold Properties</ListItem>
+                                <ListItem className="listitem" listStyleType={"none"} onClick={() => setelement("listed")}>Listed Properties</ListItem>
+                                <ListItem className="listitem" listStyleType={"none"} onClick={() => setelement("sold")}>Sold/Leased Properties</ListItem>
                             </UnorderedList>
                         </Grid>
                     </Flex>
@@ -69,6 +71,7 @@ export const ProfilePage = () => {
                     {element == "pan" && <Pan />}
                     {element == "booked" && <Booked token={token} />}
                     {element == "rented" && <Rent token={token} />}
+                    {element == "listed" && <Listed token={token} />}
                     {element == "sold" && <Sold token={token} />}
                 </Box>
             </Flex>
