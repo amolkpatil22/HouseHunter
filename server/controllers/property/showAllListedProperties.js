@@ -11,7 +11,7 @@ const showAllListedProperties = async (req, res) => {
       res.status(200).send({ message: "No property found" })
     }
   } catch (error) {
-    res.status(200).send({ error: `${error}` })
+    res.status(500).send({ error: `${error}` })
   }
 }
 
