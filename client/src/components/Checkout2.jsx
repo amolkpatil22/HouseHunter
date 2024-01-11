@@ -11,6 +11,8 @@ const Checkout2 = () => {
   let toast = useToast()
   let navigate = useNavigate()
   const property = propertiesData?.find((e) => e._id === id)
+  console.log(id)
+  console.log(propertiesData)
   const [isLoading, setisLoading] = useState(false)
   let [disablebtn, setdisablebtn] = useState(false)
 
