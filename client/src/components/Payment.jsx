@@ -48,7 +48,7 @@ function Payment() {
   useEffect(() => {
     setisLoading(true)
     axios({
-      url: "https://househunter.up.railway.app/properties/rent",
+      url: "https://house-hunter-45uw.onrender.com/properties/rent",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); setPropertiesData(res.data.properties) })

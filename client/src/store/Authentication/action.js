@@ -44,7 +44,8 @@ export const userLogin=(user)=>(dispatch)=>{
 export const userRegister=(newUser)=>(dispatch)=>{
     dispatch({type:LOGIN_REQ})
     return(
-        axios.post(`${URL}/user/register`,newUser).then((res)=>{
+        axios.post(`${URL}/user/register`,newUser).then((res)=>{   
+         console.log(res)      
             dispatch({type:LOGIN_REGISTER_SUCCESS})
         }).catch((error)=>{
             console.log(error.message)

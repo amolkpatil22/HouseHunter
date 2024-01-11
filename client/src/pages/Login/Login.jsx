@@ -176,24 +176,26 @@ const Login = () => {
 
 
       <Box
+
         w={"100%"}
         h={"auto"}
-        backgroundImage="url('https://www.zillowstatic.com/bedrock/app/uploads/sites/5/2022/07/Buy_a_home.png')"
+   mt={"50px"}
         backgroundSize="cover"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
-       
+
       >
 
         <Box
+
           margin={"auto"}
           mt={"20px"}
           w={['80%', '70%', '40%']} // Responsive width     
           p={4}
           mb={"50px"}
-          backgroundColor="rgba(0,0,0,.3)"
-          border={"1px solid blue"}
-          boxShadow={"inset -2px -2px rgba(0, 0, 0, 0.5)"}
+      
+
+          style={{ boxShadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px" , background: "radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%)"}}
           borderRadius={"20px"}
         // backgroundColor={"red"}
 
@@ -206,7 +208,7 @@ const Login = () => {
               mt={5}
               fontFamily="serif"
               fontWeight="semibold"
-              color={"white"}
+              color={"black"}
               borderBottom={"4px solid rgba(255,255,255,0.6)"}
             >
               Welcome to House Hunter
@@ -214,9 +216,9 @@ const Login = () => {
           </Center>
 
           <Tabs mt={5} index={activeTab} onChange={(index) => setActiveTab(index)}>
-            <TabList borderBottom={"2px solid rgba(0,0,255,0.6)"}>
-              <Tab _selected={{ color: "white", borderBottomColor: "white" }}>Sign In</Tab>
-              <Tab _selected={{ color: "white", borderBottomColor: "white" }}>Register</Tab>
+            <TabList borderBottom={"2px solid rgb(49,130,206)"}>
+              <Tab _selected={{ color: "black", borderBottomColor: "orangered" }}>Sign In</Tab>
+              <Tab _selected={{ color: "black", borderBottomColor: "orangered" }}>Register</Tab>
             </TabList>
 
             <TabPanels>
@@ -283,7 +285,7 @@ const Login = () => {
                     mb={2}
                     fontSize="large"
                     fontWeight="semibold"
-                    color={"white"}
+
                     _hover={{
                       cursor: "pointer",
                       textDecoration: "underline",
@@ -295,14 +297,14 @@ const Login = () => {
 
 
                 </Center>
-                <Center color={"white"}>Or</Center>
+                <Center >Or</Center>
                 <Center>
                   <Text
                     mt={2}
                     mb={2}
                     fontSize="large"
                     fontWeight="semibold"
-                    color={"white"}
+
                     _hover={{
                       cursor: "pointer",
                       textDecoration: "underline",
@@ -468,7 +470,7 @@ const Login = () => {
 }
 const DIV = styled.div`
   input{
-    background-color: white;
+  
     color: black;
     font-weight: 500;
     cursor: pointer;
@@ -477,7 +479,7 @@ const DIV = styled.div`
     border: 2px solid #136efa;
   }
   label{
-    color: white;
+    color: black;
   }
   .chakra-tabs__tab{
     font-weight:700;

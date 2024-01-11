@@ -17,7 +17,7 @@ const Checkout = () => {
   useEffect(() => {
     setisLoading(true)
     axios({
-      url: "https://househunter.up.railway.app/properties/buy",
+      url: "https://house-hunter-45uw.onrender.com/properties/buy",
       method: "GET",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => { setisLoading(false); setPropertiesData(res.data.properties) })
@@ -28,7 +28,7 @@ const Checkout = () => {
   const handlesumbit = () => {
     setdisablebtn(true)
     axios({
-      url: `https://househunter.up.railway.app/properties/book/${id}`,
+      url: `https://house-hunter-45uw.onrender.com/properties/book/${id}`,
       method: "patch",
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` }
     }).then((res) => {

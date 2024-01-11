@@ -33,7 +33,7 @@ const BuyHouse = () => {
     }
 
     axios({
-      url: 'https://househunter.up.railway.app/properties/buy',
+      url: 'https://house-hunter-45uw.onrender.com/properties/buy',
       method: 'GET',
       headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}` },
     })
@@ -124,7 +124,7 @@ const BuyHouse = () => {
         </PropertiesList>
       )}
 
-      <PaginationContainer>
+      <PaginationContainer style={{ alignItems: "center", gap: "20px", marginTop: "50px" }}>
         <PaginationButton
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
@@ -167,7 +167,7 @@ const PaginationContainer = styled.div`
 const PaginationButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #3182CE;
   color: #fff;
   border: none;
   border-radius: 5px;

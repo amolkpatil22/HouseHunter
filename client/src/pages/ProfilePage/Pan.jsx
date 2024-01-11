@@ -71,7 +71,7 @@ export const Pan = () => {
                     />
                 </FormControl>
                 {editStatus == true && <Button onClick={() => setEditStatus(false)} colorScheme="orange">Edit Details</Button>}
-                {editStatus == false && <Button type="submit" colorScheme="blue">
+                {editStatus == false && <Button isDisabled="true" type="submit" colorScheme="blue">
                     Save Changes
                 </Button>}
             </form>}

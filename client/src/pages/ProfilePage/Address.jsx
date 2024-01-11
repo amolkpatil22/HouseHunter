@@ -54,7 +54,7 @@ export const Address = () => {
         // Implement your logic to update user account information here
         axios({
             method: "PATCH",
-            url: "https://househunter.up.railway.app/user/update",
+            url: "https://house-hunter-45uw.onrender.com/user/update",
             headers: { Authorization: `Bearer ${token}` },
             data: userInfo
         })

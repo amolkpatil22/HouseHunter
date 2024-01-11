@@ -35,17 +35,26 @@ export const ProfileInfo = () => {
 
     useEffect(() => {
 
-        setUserInfo({ name: userdata?.name, email: userdata?.email, password: userdata?.password, mobile: userdata?.mobile })
+        setUserInfo({ name: userdata?.name, email: userdata?.email, password: "", mobile: userdata?.mobile })
     }, [userdata])
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
         // Implement your logic to update user account information here
+       
+
+        let newdata = {}
+        newdata.mobile = userInfo?.mobile
+        if (userInfo.password) {
+            newdata.password = userInfo.password
+        }
+
+console.log(newdata)
         axios({
             method: "PATCH",
-            url: "https://househunter.up.railway.app/user/update",
+            url: "https://house-hunter-45uw.onrender.com/user/update",
             headers: { Authorization: `Bearer ${token}` },
-            data: { password: userInfo.password, mobile: userInfo.mobile }
+            data: newdata
         })
             .then((res) => {
                 console.log(res); dispatch(GetUser(token)); toast({
@@ -101,12 +110,13 @@ export const ProfileInfo = () => {
                 <FormControl mb="4">
                     <FormLabel>New Password:</FormLabel>
                     <Input
+                    placeholder="********"
                         isDisabled={editStatus}
                         type="password"
                         name="password"
                         value={userInfo?.password}
                         onChange={handleInputChange}
-                        isRequired
+                        
                     />
                 </FormControl>
                 <FormControl mb="4">

@@ -71,7 +71,7 @@ function SellHouse() {
     // Add logic to send the data to your backend or perform any necessary action.
 
 
-    //  axios.post("https://househunter.up.railway.app/properties/add",formData,
+    //  axios.post("https://house-hunter-45uw.onrender.com/properties/add",formData,
     //  {headers:
     //  {authorization:`Bearer ${localStorage.getItem("token")}`}
     //  })
@@ -80,7 +80,7 @@ function SellHouse() {
     setisLoading(true)
     let request = axios({
       method: "POST",
-      url: 'https://househunter.up.railway.app/properties/add',
+      url: 'https://house-hunter-45uw.onrender.com/properties/add',
       headers: { authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}` },
       data: formData
     }).then((res) => { setisLoading(false); console.log(res) })
