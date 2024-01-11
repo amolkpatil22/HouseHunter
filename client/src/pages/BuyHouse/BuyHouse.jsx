@@ -109,8 +109,7 @@ const BuyHouse = () => {
           _hover={{
             bg: 'green.600',
             color: 'white',
-          }}
-          onClick={filterAndSortProperties}
+          }}        
         >
           Search
         </Button>
@@ -118,7 +117,8 @@ const BuyHouse = () => {
       {isLoading && <SpinnerLoader />}
       {!isLoading && (
         <PropertiesList>
-          {currentProperties.map((property) => (
+          {currentProperties.length==0&& <h1 style={{fontSize:"large",fontWeight:"bold"}}>No Results Found. Try Searching with New Keyword.</h1>}
+          {currentProperties?.map((property) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </PropertiesList>
