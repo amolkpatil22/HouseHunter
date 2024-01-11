@@ -22,7 +22,7 @@ export const Booked = ({ token }) => {
     useEffect(() => {
         setisLoading(true)
         axios({
-            url: "https://househunter.up.railway.app/properties/bought",
+            url: "https://house-hunter-45uw.onrender.com/properties/bought",
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
         }).then((res) => { setisLoading(false); if (res.data.properties) { setdata(res.data.properties) } })

@@ -6,6 +6,6 @@ export const LOGIN_REGISTER_SUCCESS="LOGIN_REGISTER_SUCCESS";
 export const LOG_OUT= "LOG_OUT";
 
 // export const URL=`http://localhost:8080`
-export const URL=`https://househunter.up.railway.app`
+export const URL=`https://house-hunter-45uw.onrender.com`
 
 

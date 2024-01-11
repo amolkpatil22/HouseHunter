@@ -20,7 +20,7 @@ export const Sold = ({ token }) => {
     useEffect(() => {
         setisLoading(true)
         axios({
-            url: "https://househunter.up.railway.app/properties/all",
+            url: "https://house-hunter-45uw.onrender.com/properties/all",
             method: "GET",
             headers: { Authorization: `Bearer ${token}` }
         }).then((res) => {
