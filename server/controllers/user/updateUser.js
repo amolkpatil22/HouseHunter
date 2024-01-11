@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt")
+
 const UserModel = require("../../models/user.model")
 
 const updateUser = async (req, res) => {
@@ -10,7 +12,7 @@ const updateUser = async (req, res) => {
           if (err) {
             res.status(400).send({ error: err })
           } else {
-            await UserModel.findByIdAndUpdate(userID, {
+            await UserModel.findByIdAndUpdate(id, {
               password: hash,
             })
           }
@@ -29,7 +31,7 @@ const updateUser = async (req, res) => {
       res.status(400).send({ error: "User ID is missing" })
     }
   } catch (error) {
-    res.status(500).send({ error })
+    res.status(500).send({ error: `${error.message}` })
   }
 }
 
