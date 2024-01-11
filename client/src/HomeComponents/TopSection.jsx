@@ -14,7 +14,7 @@ const TopSection = () => {
     if (searchParam !== "") {
       const queryParams = new URLSearchParams();
       queryParams.set("search", searchParam);
-      navigate(`/buyProduct?${queryParams.toString()}`);
+      navigate(`/buyhouse?query=${searchParam}`);
     }
   };
 
